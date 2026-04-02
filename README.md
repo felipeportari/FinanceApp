@@ -295,19 +295,21 @@ E com o apoio silencioso (mas atento) do nosso mascote favorito:
        /          \
       /  .-~~~~-.  \
      |  / .-~~-. \  |
-     | |  ( ͡° ͜ʖ ͡°) |  |   <-- Buddy Biscuit
-     | |   \    /  |  |
-      \ \   `--'  / /
-  ___  `----------'  ___
- /   \  __________  /   \
-|  L  \/          \/  R  |
-|  E  /   carapaça \  I  |
-|  F  \  de sabedoria/  G  |
-|  T  /\            /\  H  |
- \___/  \__________/  \___/
-          |      |
-         _|      |_
-        (_)      (_)
+     | | ( ͡° ͜ʖ ͡°) | |
+     | |   \    /   | |
+      \ \   `--'   / /
+       `----------`
+  ___   __________   ___
+ /   \ /          \ /   \
+|     V            V     |
+|     |  carapaca  |     |
+|     |     de     |     |
+|     | sabedoria  |     |
+|     |            |     |
+ \___/ \__________/ \___/
+         |      |
+        _|      |_
+       (_)      (_)
 ```
 
 **Buddy Biscuit** — a tartaruga mais financeiramente consciente do mundo.
