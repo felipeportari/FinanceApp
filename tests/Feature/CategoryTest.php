@@ -108,7 +108,7 @@ class CategoryTest extends TestCase
 
     public function test_user_can_delete_custom_category(): void
     {
-        $cat = Category::create(['name' => 'Removível', 'color' => '#64748B', 'icon' => 'tag', 'is_default' => false]);
+        $cat = Category::create(['user_id' => $this->user->id, 'name' => 'Removível', 'color' => '#64748B', 'icon' => 'tag', 'is_default' => false]);
 
         $this->actingAs($this->user)
              ->delete(route('categories.destroy', $cat))
@@ -132,7 +132,7 @@ class CategoryTest extends TestCase
 
     public function test_cannot_delete_category_with_transactions(): void
     {
-        $cat = Category::create(['name' => 'Usada', 'color' => '#64748B', 'icon' => 'tag', 'is_default' => false]);
+        $cat = Category::create(['user_id' => $this->user->id, 'name' => 'Usada', 'color' => '#64748B', 'icon' => 'tag', 'is_default' => false]);
 
         Transaction::create([
             'user_id'     => $this->user->id,

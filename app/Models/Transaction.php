@@ -60,7 +60,7 @@ class Transaction extends Model
 
     public function scopeOfUser(Builder $query, int $userId): Builder
     {
-        return $query->where('user_id', $userId);
+        return $query->where('transactions.user_id', $userId);
     }
 
     // ── Helpers ────────────────────────────────────────────────────────────────

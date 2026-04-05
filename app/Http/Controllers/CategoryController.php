@@ -21,7 +21,10 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-        Category::create($request->validated());
+        Category::create([
+            ...$request->validated(),
+            'user_id' => auth()->id(),
+        ]);
 
         return redirect()->route('categories.index')
             ->with('success', 'Categoria criada com sucesso!');
@@ -31,6 +34,10 @@ class CategoryController extends Controller
     {
         if ($category->is_default) {
             return back()->with('error', 'Categorias padrão não podem ser removidas.');
+        }
+
+        if ($category->user_id !== auth()->id()) {
+            abort(403);
         }
 
         if ($category->transactions()->exists()) {

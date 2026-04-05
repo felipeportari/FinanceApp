@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTransactionRequest extends FormRequest
 {
@@ -16,7 +17,16 @@ class StoreTransactionRequest extends FormRequest
         return [
             'type'        => ['required', 'in:expense,income'],
             'amount'      => ['required', 'numeric', 'min:0.01', 'max:9999999.99'],
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => [
+                'required',
+                // Must be a category visible to this user (default or own)
+                Rule::exists('categories', 'id')->where(function ($query) {
+                    $query->where(function ($q) {
+                        $q->whereNull('user_id')
+                          ->orWhere('user_id', auth()->id());
+                    });
+                }),
+            ],
             'description' => ['required', 'string', 'min:3', 'max:255'],
             'date'        => ['required', 'date', 'before_or_equal:today'],
         ];

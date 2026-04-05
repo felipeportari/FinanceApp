@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -14,7 +15,16 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => ['required', 'string', 'min:2', 'max:100', 'unique:categories,name'],
+            'name' => [
+                'required', 'string', 'min:2', 'max:100',
+                // Name must be unique within categories visible to this user
+                Rule::unique('categories', 'name')->where(function ($query) {
+                    $query->where(function ($q) {
+                        $q->whereNull('user_id')
+                          ->orWhere('user_id', auth()->id());
+                    });
+                }),
+            ],
             'color' => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
             'icon'  => ['required', 'string', 'max:50'],
         ];
