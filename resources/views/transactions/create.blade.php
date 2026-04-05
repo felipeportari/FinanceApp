@@ -53,7 +53,7 @@
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 text-sm font-medium">R$</span>
                     <input type="number" name="amount" value="{{ old('amount') }}" step="0.01" min="0.01" required
                            placeholder="0,00"
-                           class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                           class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                 </div>
                 @error('amount')
                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -64,7 +64,7 @@
             <div>
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Categoria *</label>
                 <select name="category_id" required
-                        class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                        class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                     <option value="">Selecione uma categoria</option>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
@@ -82,7 +82,7 @@
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Descrição *</label>
                 <input type="text" name="description" value="{{ old('description') }}" required
                        placeholder="Ex: Supermercado, Salário mensal..."
-                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                 @error('description')
                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                 @enderror
@@ -93,7 +93,7 @@
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Data *</label>
                 <input type="date" name="date" value="{{ old('date', now()->format('Y-m-d')) }}" required
                        max="{{ now()->format('Y-m-d') }}"
-                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                 @error('date')
                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                 @enderror
@@ -102,7 +102,7 @@
             {{-- Actions --}}
             <div class="flex gap-3 pt-2">
                 <button type="submit"
-                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-colors">
+                        class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-colors">
                     Salvar Transação
                 </button>
                 <a href="{{ route('transactions.index') }}"

@@ -17,7 +17,7 @@
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Nome *</label>
                 <input type="text" name="name" value="{{ old('name') }}" required
                        placeholder="Ex: Viagens, Pets..."
-                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                 @error('name')
                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                 @enderror
@@ -31,7 +31,7 @@
                            class="w-12 h-10 rounded-lg border border-slate-300 dark:border-slate-700 cursor-pointer bg-transparent">
                     <input type="text" id="colorHex" value="{{ old('color', '#3B82F6') }}"
                            placeholder="#3B82F6"
-                           class="flex-1 px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+                           class="flex-1 px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-mono"
                            oninput="document.getElementById('colorPicker').value = this.value; document.querySelector('[name=color]').value = this.value">
                 </div>
 
@@ -54,7 +54,7 @@
                 <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Ícone (nome) *</label>
                 <input type="text" name="icon" value="{{ old('icon', 'tag') }}"
                        placeholder="tag, home, star..."
-                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                 <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Identificador de ícone para uso futuro.</p>
                 @error('icon')
                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -64,7 +64,7 @@
             {{-- Actions --}}
             <div class="flex gap-3 pt-2">
                 <button type="submit"
-                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-colors">
+                        class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-colors">
                     Criar Categoria
                 </button>
                 <a href="{{ route('categories.index') }}"

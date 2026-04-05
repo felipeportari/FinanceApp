@@ -9,7 +9,7 @@
 <div class="max-w-4xl mx-auto">
 
     {{-- Header card --}}
-    <div class="bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-900 rounded-2xl p-6 mb-6 text-white">
+    <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 dark:from-emerald-700 dark:to-emerald-900 rounded-2xl p-6 mb-6 text-white">
         <div class="flex items-start gap-4">
             <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -18,7 +18,7 @@
             </div>
             <div>
                 <h2 class="text-lg font-bold">Consultor Financeiro com IA</h2>
-                <p class="text-blue-100 text-sm mt-1">
+                <p class="text-emerald-100 text-sm mt-1">
                     Análise estratégica baseada nas suas transações dos últimos 6 meses.
                     O sistema envia seus dados financeiros para a OpenAI e retorna insights personalizados.
                 </p>
@@ -50,7 +50,7 @@ OPENAI_MODEL=gpt-4o-mini</pre>
             <button type="submit"
                     @click="loading = true"
                     :disabled="loading"
-                    class="w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3.5 px-6 rounded-xl text-sm transition-colors">
+                    class="w-full flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3.5 px-6 rounded-xl text-sm transition-colors">
                 <template x-if="!loading">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>

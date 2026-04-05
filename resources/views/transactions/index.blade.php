@@ -14,12 +14,12 @@
         <div class="flex-1 min-w-48">
             <input type="text" name="search" value="{{ $filters['search'] ?? '' }}"
                    placeholder="Buscar por descrição..."
-                   class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                   class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
         </div>
 
         {{-- Type --}}
         <select name="type"
-                class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <option value="">Todos os tipos</option>
             <option value="expense" {{ ($filters['type'] ?? '') === 'expense' ? 'selected' : '' }}>Gastos</option>
             <option value="income"  {{ ($filters['type'] ?? '') === 'income'  ? 'selected' : '' }}>Lucros</option>
@@ -27,7 +27,7 @@
 
         {{-- Category --}}
         <select name="category_id"
-                class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <option value="">Todas as categorias</option>
             @foreach($categories as $cat)
                 <option value="{{ $cat->id }}" {{ ($filters['category_id'] ?? '') == $cat->id ? 'selected' : '' }}>
@@ -38,7 +38,7 @@
 
         {{-- Month --}}
         <select name="month"
-                class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <option value="">Todos os meses</option>
             @foreach(range(1, 12) as $m)
                 <option value="{{ $m }}" {{ ($filters['month'] ?? '') == $m ? 'selected' : '' }}>
@@ -49,14 +49,14 @@
 
         {{-- Year --}}
         <select name="year"
-                class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
             <option value="">Todos os anos</option>
             @foreach(range(now()->year, now()->year - 3) as $y)
                 <option value="{{ $y }}" {{ ($filters['year'] ?? '') == $y ? 'selected' : '' }}>{{ $y }}</option>
             @endforeach
         </select>
 
-        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg">
+        <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg">
             Filtrar
         </button>
 
@@ -76,7 +76,7 @@
             <span class="font-semibold text-slate-800 dark:text-white">{{ $transactions->total() }}</span> transações encontradas
         </p>
         <a href="{{ route('transactions.create') }}"
-           class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg">
+           class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
@@ -90,7 +90,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
             </svg>
             <p class="text-slate-500 dark:text-slate-400">Nenhuma transação encontrada.</p>
-            <a href="{{ route('transactions.create') }}" class="mt-3 inline-block text-sm text-blue-600 hover:underline">
+            <a href="{{ route('transactions.create') }}" class="mt-3 inline-block text-sm text-emerald-600 hover:underline">
                 Adicionar primeira transação
             </a>
         </div>
@@ -133,7 +133,7 @@
                             <td class="px-5 py-3.5">
                                 <div class="flex items-center justify-end gap-2">
                                     <a href="{{ route('transactions.edit', $t) }}"
-                                       class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                       class="text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                         </svg>

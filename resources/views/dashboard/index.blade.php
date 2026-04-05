@@ -31,8 +31,8 @@
                 'label'  => 'Saldo do Mês',
                 'value'  => $monthBalance,
                 'icon'   => 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-                'color'  => $monthBalance >= 0 ? 'text-blue-600 dark:text-blue-400' : 'text-red-600 dark:text-red-400',
-                'bg'     => $monthBalance >= 0 ? 'bg-blue-50 dark:bg-blue-900/20' : 'bg-red-50 dark:bg-red-900/20',
+                'color'  => $monthBalance >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400',
+                'bg'     => $monthBalance >= 0 ? 'bg-emerald-50 dark:bg-emerald-900/20' : 'bg-red-50 dark:bg-red-900/20',
                 'prefix' => $monthBalance >= 0 ? '+' : '',
             ],
             [
@@ -135,7 +135,7 @@
     <div class="xl:col-span-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
         <div class="flex items-center justify-between mb-4">
             <h3 class="font-semibold text-slate-800 dark:text-white">Últimas Transações</h3>
-            <a href="{{ route('transactions.index') }}" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Ver todas</a>
+            <a href="{{ route('transactions.index') }}" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline">Ver todas</a>
         </div>
 
         @php

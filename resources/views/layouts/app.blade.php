@@ -15,8 +15,8 @@
                 extend: {
                     colors: {
                         brand: {
-                            light: '#2563EB',
-                            dark:  '#3B82F6',
+                            light: '#059669',
+                            dark:  '#10b981',
                         }
                     }
                 }
@@ -42,7 +42,7 @@
 
         /* Sidebar active */
         .nav-link.active {
-            @apply bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400;
+            @apply bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400;
         }
     </style>
 

@@ -26,7 +26,7 @@
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <span class="px-3 py-1.5 text-sm rounded-lg bg-blue-600 text-white font-medium">{{ $page }}</span>
+                            <span class="px-3 py-1.5 text-sm rounded-lg bg-emerald-600 text-white font-medium">{{ $page }}</span>
                         @else
                             <a href="{{ $url }}"
                                class="px-3 py-1.5 text-sm rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">

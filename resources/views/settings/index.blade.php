@@ -62,7 +62,7 @@
                            name="openai_key"
                            placeholder="{{ auth()->user()->openai_key ? '••••••••••••••••••••••••' : 'sk-...' }}"
                            autocomplete="off"
-                           class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm font-mono">
+                           class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm font-mono">
 
                     @error('openai_key')
                         <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -70,7 +70,7 @@
 
                     <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
                         Sua chave é armazenada de forma encriptada. Obtenha a sua em
-                        <span class="text-blue-600 dark:text-blue-400">platform.openai.com/api-keys</span>.
+                        <span class="text-emerald-600 dark:text-emerald-400">platform.openai.com/api-keys</span>.
                     </p>
                 </div>
 
@@ -86,7 +86,7 @@
 
                 <div class="flex justify-end">
                     <button type="submit"
-                            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-5 rounded-lg text-sm transition-colors">
+                            class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-5 rounded-lg text-sm transition-colors">
                         Salvar
                     </button>
                 </div>
