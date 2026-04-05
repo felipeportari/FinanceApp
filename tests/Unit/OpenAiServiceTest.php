@@ -2,30 +2,35 @@
 
 namespace Tests\Unit;
 
+use App\Models\User;
 use App\Services\OpenAiService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class OpenAiServiceTest extends TestCase
 {
+    use RefreshDatabase;
+
     // ── isConfigured ──────────────────────────────────────────────────────────
 
     public function test_is_configured_returns_false_when_key_is_empty(): void
     {
-        config(['services.openai.key' => '']);
+        $user = User::factory()->create(['openai_key' => null]);
+        $this->actingAs($user);
         $this->assertFalse(OpenAiService::isConfigured());
     }
 
-    public function test_is_configured_returns_false_when_key_is_null(): void
+    public function test_is_configured_returns_false_when_not_authenticated(): void
     {
-        config(['services.openai.key' => null]);
         $this->assertFalse(OpenAiService::isConfigured());
     }
 
     public function test_is_configured_returns_true_when_key_is_set(): void
     {
-        config(['services.openai.key' => 'sk-test-key']);
+        $user = User::factory()->create(['openai_key' => 'sk-test-key']);
+        $this->actingAs($user);
         $this->assertTrue(OpenAiService::isConfigured());
     }
 

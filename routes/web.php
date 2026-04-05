@@ -4,6 +4,7 @@ use App\Http\Controllers\AiAnalysisController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,10 @@ Route::middleware('auth')->group(function () {
     // AI Analysis
     Route::get('/ai-analysis', [AiAnalysisController::class, 'index'])->name('ai.analysis');
     Route::post('/ai-analysis', [AiAnalysisController::class, 'analyze'])->name('ai.analyze');
+
+    // Settings
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update');
 
     // Theme toggle
     Route::post('/theme/toggle', [ThemeController::class, 'toggle'])->name('theme.toggle');

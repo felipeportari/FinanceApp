@@ -19,7 +19,7 @@ class AiAnalysisController extends Controller
     public function analyze(Request $request)
     {
         if (!OpenAiService::isConfigured()) {
-            return back()->with('error', 'API Key da OpenAI não configurada. Adicione OPENAI_API_KEY no arquivo .env.');
+            return back()->with('error', 'API Key da OpenAI não configurada. Adicione sua chave nas configurações.');
         }
 
         try {
@@ -27,8 +27,8 @@ class AiAnalysisController extends Controller
             $payload  = $service->buildAiPayload();
 
             $openAi   = new OpenAiService(
-                apiKey: config('services.openai.key'),
-                model:  config('services.openai.model', 'gpt-4o-mini')
+                apiKey: auth()->user()->openai_key,
+                model:  config('services.openai.model', 'gpt-4o-mini'),
             );
 
             $analysis = $openAi->analyze($payload);

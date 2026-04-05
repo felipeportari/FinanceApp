@@ -12,11 +12,13 @@ class AiAnalysisTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+    private User $userWithKey;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->user = User::factory()->create();
+        $this->user        = User::factory()->create(['openai_key' => null]);
+        $this->userWithKey = User::factory()->create(['openai_key' => 'sk-fake-key']);
     }
 
     // ── Page access ───────────────────────────────────────────────────────────
@@ -36,8 +38,6 @@ class AiAnalysisTest extends TestCase
 
     public function test_page_shows_warning_when_api_key_not_configured(): void
     {
-        config(['services.openai.key' => '']);
-
         $this->actingAs($this->user)
              ->get(route('ai.analysis'))
              ->assertOk()
@@ -46,9 +46,7 @@ class AiAnalysisTest extends TestCase
 
     public function test_page_shows_analyze_button_when_api_key_configured(): void
     {
-        config(['services.openai.key' => 'sk-fake-key']);
-
-        $this->actingAs($this->user)
+        $this->actingAs($this->userWithKey)
              ->get(route('ai.analysis'))
              ->assertOk()
              ->assertSee('Gerar Análise Financeira');
@@ -58,8 +56,6 @@ class AiAnalysisTest extends TestCase
 
     public function test_analyze_redirects_with_error_when_api_not_configured(): void
     {
-        config(['services.openai.key' => '']);
-
         $this->actingAs($this->user)
              ->post(route('ai.analyze'))
              ->assertRedirect()
@@ -68,8 +64,6 @@ class AiAnalysisTest extends TestCase
 
     public function test_analyze_returns_ai_content_on_success(): void
     {
-        config(['services.openai.key' => 'sk-fake-key']);
-
         Http::fake([
             'api.openai.com/*' => Http::response([
                 'choices' => [
@@ -78,7 +72,7 @@ class AiAnalysisTest extends TestCase
             ], 200),
         ]);
 
-        $this->actingAs($this->user)
+        $this->actingAs($this->userWithKey)
              ->post(route('ai.analyze'))
              ->assertOk()
              ->assertViewHas('analysis');
@@ -86,13 +80,11 @@ class AiAnalysisTest extends TestCase
 
     public function test_analyze_shows_error_on_openai_failure(): void
     {
-        config(['services.openai.key' => 'sk-fake-key']);
-
         Http::fake([
             'api.openai.com/*' => Http::response(['error' => 'Unauthorized'], 401),
         ]);
 
-        $this->actingAs($this->user)
+        $this->actingAs($this->userWithKey)
              ->post(route('ai.analyze'))
              ->assertRedirect()
              ->assertSessionHas('error');

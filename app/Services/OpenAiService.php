@@ -59,7 +59,7 @@ PROMPT;
             ]);
 
             throw new \RuntimeException(
-                'Falha ao conectar com a OpenAI. Verifique sua API Key no arquivo .env.'
+                'Falha ao conectar com a OpenAI. Verifique sua API Key nas configurações.'
             );
         }
 
@@ -81,6 +81,6 @@ MSG;
 
     public static function isConfigured(): bool
     {
-        return !empty(config('services.openai.key'));
+        return !empty(auth()->user()?->openai_key);
     }
 }

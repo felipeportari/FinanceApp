@@ -16,6 +16,7 @@ class User extends Authenticatable
         'email',
         'password',
         'theme',
+        'openai_key',
     ];
 
     protected $hidden = [
@@ -27,7 +28,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
+            'openai_key'        => 'encrypted',
         ];
     }
 
