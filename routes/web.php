@@ -35,7 +35,9 @@ Route::middleware('auth')->group(function () {
 
     // AI Analysis
     Route::get('/ai-analysis', [AiAnalysisController::class, 'index'])->name('ai.analysis');
-    Route::post('/ai-analysis', [AiAnalysisController::class, 'analyze'])->name('ai.analyze');
+    Route::post('/ai-analysis', [AiAnalysisController::class, 'store'])->name('ai.store');
+    Route::get('/ai-analysis/{report}', [AiAnalysisController::class, 'show'])->name('ai.show');
+    Route::delete('/ai-analysis/{report}', [AiAnalysisController::class, 'destroy'])->name('ai.destroy');
 
     // Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');

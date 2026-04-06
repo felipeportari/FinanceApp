@@ -12,18 +12,32 @@ class OpenAiService
     private const SYSTEM_PROMPT = <<<PROMPT
 Você é um consultor financeiro pessoal altamente estratégico e direto ao ponto.
 
-Analise os dados financeiros fornecidos e responda com:
+Analise os dados financeiros fornecidos e responda **obrigatoriamente** com estas 6 seções, nesta ordem, usando os títulos exatos abaixo:
 
-1. Principais erros financeiros do usuário
-2. Principais acertos financeiros
-3. Categorias onde há desperdício
-4. Sugestões práticas de economia
-5. Oportunidades de aumento de lucro
-6. Um diagnóstico geral (crítico e objetivo)
+## 🚫 Gastos Desnecessários
+Liste os gastos que poderiam ser eliminados sem impacto significativo na qualidade de vida. Seja específico com valores e categorias identificadas nos dados.
 
-Seja direto, analítico e profissional. Evite respostas genéricas.
-Formate sua resposta com títulos claros usando markdown (## para seções, **negrito** para destaques).
-Use valores monetários no formato R$ 0.000,00.
+## 📈 Onde Podemos Melhorar
+Aponte as principais oportunidades de otimização financeira. Sugira ações práticas e realistas com potencial de economia estimado.
+
+## ⚠️ Pontos Importantes
+Destaque alertas críticos: tendências negativas, desequilíbrios entre receita e despesa, meses problemáticos, riscos financeiros identificados.
+
+## ✅ Bons Usos do Dinheiro
+Reconheça os gastos que demonstram boa gestão financeira, investimentos em qualidade de vida, ou hábitos saudáveis.
+
+## 💰 Gastos Razoáveis
+Liste gastos que estão em um nível adequado — nem excessivos nem problemáticos — e que não precisam de ajuste.
+
+## 📊 Diagnóstico Geral
+Faça uma avaliação objetiva e direta da saúde financeira do usuário. Dê uma nota de 1 a 10 para a gestão financeira com justificativa clara.
+
+---
+Regras:
+- Use **negrito** para valores e destaques importantes
+- Formate valores como R$ 0.000,00
+- Seja direto e analítico — evite respostas genéricas
+- Baseie-se apenas nos dados fornecidos
 PROMPT;
 
     public function __construct(
@@ -32,7 +46,7 @@ PROMPT;
     ) {}
 
     /**
-     * Analyze financial data and return AI insights.
+     * Analyze financial data and return structured AI report.
      *
      * @throws \RuntimeException
      */
@@ -41,15 +55,15 @@ PROMPT;
         $userMessage = $this->buildUserMessage($financialData);
 
         $response = Http::withToken($this->apiKey)
-            ->timeout(60)
+            ->timeout(90)
             ->post(self::API_URL, [
                 'model'       => $this->model,
                 'messages'    => [
                     ['role' => 'system', 'content' => self::SYSTEM_PROMPT],
                     ['role' => 'user',   'content' => $userMessage],
                 ],
-                'temperature' => 0.7,
-                'max_tokens'  => 2000,
+                'temperature' => 0.6,
+                'max_tokens'  => 2500,
             ]);
 
         if ($response->failed()) {
@@ -59,11 +73,11 @@ PROMPT;
             ]);
 
             throw new \RuntimeException(
-                'Falha ao conectar com a OpenAI. Verifique sua API Key nas configurações.'
+                __('app.messages.openai_error')
             );
         }
 
-        return $response->json('choices.0.message.content', 'Não foi possível gerar análise.');
+        return $response->json('choices.0.message.content', '');
     }
 
     private function buildUserMessage(array $data): string
@@ -71,7 +85,7 @@ PROMPT;
         $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
         return <<<MSG
-Analise os seguintes dados financeiros e forneça insights estratégicos:
+Analise os seguintes dados financeiros e gere o relatório completo com todas as 6 seções obrigatórias:
 
 ```json
 {$json}
