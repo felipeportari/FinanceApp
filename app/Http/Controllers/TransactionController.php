@@ -16,7 +16,7 @@ class TransactionController extends Controller
 
         $filters = $request->only(['type', 'category_id', 'month', 'year', 'search']);
         $transactions = $service->paginatedTransactions($filters);
-        $categories   = Category::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
 
         return view('transactions.index', compact('transactions', 'categories', 'filters'));
     }

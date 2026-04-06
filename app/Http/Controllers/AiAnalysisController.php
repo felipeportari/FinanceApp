@@ -17,7 +17,7 @@ class AiAnalysisController extends Controller
 
         return view('ai.analysis', [
             'isConfigured' => OpenAiService::isConfigured(),
-            'reports'      => $reports,
+            'reports' => $reports,
         ]);
     }
 
@@ -34,7 +34,7 @@ class AiAnalysisController extends Controller
      */
     public function store(Request $request)
     {
-        if (!OpenAiService::isConfigured()) {
+        if (! OpenAiService::isConfigured()) {
             return response()->json([
                 'error' => __('app.messages.api_not_configured'),
             ], 422);
@@ -48,7 +48,7 @@ class AiAnalysisController extends Controller
 
             $openAi = new OpenAiService(
                 apiKey: auth()->user()->openai_key,
-                model:  config('services.openai.model', 'gpt-4o-mini'),
+                model: config('services.openai.model', 'gpt-4o-mini'),
             );
 
             $content = $openAi->analyze($payload);

@@ -16,8 +16,8 @@ class UserController extends Controller
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%');
+                $q->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhere('email', 'like', '%'.$request->search.'%');
             });
         }
 
@@ -34,18 +34,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::min(8)],
-            'locale'   => ['required', 'in:pt,en,es'],
+            'locale' => ['required', 'in:pt,en,es'],
             'is_admin' => ['boolean'],
         ]);
 
         User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
+            'name' => $request->name,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            'locale'   => $request->locale,
+            'locale' => $request->locale,
             'is_admin' => $request->boolean('is_admin'),
         ]);
 
@@ -61,17 +61,17 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'password' => ['nullable', 'confirmed', Password::min(8)],
-            'locale'   => ['required', 'in:pt,en,es'],
+            'locale' => ['required', 'in:pt,en,es'],
             'is_admin' => ['boolean'],
         ]);
 
         $updates = [
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'locale'   => $request->locale,
+            'name' => $request->name,
+            'email' => $request->email,
+            'locale' => $request->locale,
             'is_admin' => $request->boolean('is_admin'),
         ];
 

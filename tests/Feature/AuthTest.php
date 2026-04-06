@@ -20,8 +20,8 @@ class AuthTest extends TestCase
     public function test_login_page_is_redirected_for_authenticated_users(): void
     {
         $this->actingAs(User::factory()->create())
-             ->get(route('login'))
-             ->assertRedirect(route('dashboard'));
+            ->get(route('login'))
+            ->assertRedirect(route('dashboard'));
     }
 
     // ── Login submit ───────────────────────────────────────────────────────────
@@ -31,7 +31,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create(['password' => bcrypt('secret123')]);
 
         $this->post(route('login'), [
-            'email'    => $user->email,
+            'email' => $user->email,
             'password' => 'secret123',
         ])->assertRedirect(route('dashboard'));
 
@@ -43,7 +43,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create(['password' => bcrypt('correct')]);
 
         $this->post(route('login'), [
-            'email'    => $user->email,
+            'email' => $user->email,
             'password' => 'wrong',
         ])->assertSessionHasErrors('email');
 
@@ -53,7 +53,7 @@ class AuthTest extends TestCase
     public function test_user_cannot_login_with_nonexistent_email(): void
     {
         $this->post(route('login'), [
-            'email'    => 'nobody@example.com',
+            'email' => 'nobody@example.com',
             'password' => 'password',
         ])->assertSessionHasErrors('email');
 
@@ -63,13 +63,13 @@ class AuthTest extends TestCase
     public function test_login_validates_required_fields(): void
     {
         $this->post(route('login'), [])
-             ->assertSessionHasErrors(['email', 'password']);
+            ->assertSessionHasErrors(['email', 'password']);
     }
 
     public function test_login_validates_email_format(): void
     {
         $this->post(route('login'), [
-            'email'    => 'not-an-email',
+            'email' => 'not-an-email',
             'password' => 'password',
         ])->assertSessionHasErrors('email');
     }
@@ -81,8 +81,8 @@ class AuthTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-             ->post(route('logout'))
-             ->assertRedirect(route('login'));
+            ->post(route('logout'))
+            ->assertRedirect(route('login'));
 
         $this->assertGuest();
     }

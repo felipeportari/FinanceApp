@@ -32,9 +32,9 @@ class CategoryTest extends TestCase
         Category::create(['name' => 'Lazer', 'color' => '#8B5CF6', 'icon' => 'tag']);
 
         $this->actingAs($this->user)
-             ->get(route('categories.index'))
-             ->assertOk()
-             ->assertSee('Lazer');
+            ->get(route('categories.index'))
+            ->assertOk()
+            ->assertSee('Lazer');
     }
 
     // ── Create ────────────────────────────────────────────────────────────────
@@ -42,8 +42,8 @@ class CategoryTest extends TestCase
     public function test_create_page_loads(): void
     {
         $this->actingAs($this->user)
-             ->get(route('categories.create'))
-             ->assertOk();
+            ->get(route('categories.create'))
+            ->assertOk();
     }
 
     // ── Store ─────────────────────────────────────────────────────────────────
@@ -51,13 +51,13 @@ class CategoryTest extends TestCase
     public function test_user_can_create_category(): void
     {
         $this->actingAs($this->user)
-             ->post(route('categories.store'), [
-                 'name'  => 'Viagens',
-                 'color' => '#3B82F6',
-                 'icon'  => 'globe',
-             ])
-             ->assertRedirect(route('categories.index'))
-             ->assertSessionHas('success');
+            ->post(route('categories.store'), [
+                'name' => 'Viagens',
+                'color' => '#3B82F6',
+                'icon' => 'globe',
+            ])
+            ->assertRedirect(route('categories.index'))
+            ->assertSessionHas('success');
 
         $this->assertDatabaseHas('categories', ['name' => 'Viagens', 'color' => '#3B82F6']);
     }
@@ -65,8 +65,8 @@ class CategoryTest extends TestCase
     public function test_store_validates_required_fields(): void
     {
         $this->actingAs($this->user)
-             ->post(route('categories.store'), [])
-             ->assertSessionHasErrors(['name', 'color', 'icon']);
+            ->post(route('categories.store'), [])
+            ->assertSessionHasErrors(['name', 'color', 'icon']);
     }
 
     public function test_store_rejects_duplicate_name(): void
@@ -74,34 +74,34 @@ class CategoryTest extends TestCase
         Category::create(['name' => 'Lazer', 'color' => '#8B5CF6', 'icon' => 'tag']);
 
         $this->actingAs($this->user)
-             ->post(route('categories.store'), [
-                 'name'  => 'Lazer',
-                 'color' => '#FF0000',
-                 'icon'  => 'tag',
-             ])
-             ->assertSessionHasErrors('name');
+            ->post(route('categories.store'), [
+                'name' => 'Lazer',
+                'color' => '#FF0000',
+                'icon' => 'tag',
+            ])
+            ->assertSessionHasErrors('name');
     }
 
     public function test_store_rejects_invalid_hex_color(): void
     {
         $this->actingAs($this->user)
-             ->post(route('categories.store'), [
-                 'name'  => 'Válida',
-                 'color' => 'not-a-color',
-                 'icon'  => 'tag',
-             ])
-             ->assertSessionHasErrors('color');
+            ->post(route('categories.store'), [
+                'name' => 'Válida',
+                'color' => 'not-a-color',
+                'icon' => 'tag',
+            ])
+            ->assertSessionHasErrors('color');
     }
 
     public function test_store_rejects_short_name(): void
     {
         $this->actingAs($this->user)
-             ->post(route('categories.store'), [
-                 'name'  => 'X',
-                 'color' => '#3B82F6',
-                 'icon'  => 'tag',
-             ])
-             ->assertSessionHasErrors('name');
+            ->post(route('categories.store'), [
+                'name' => 'X',
+                'color' => '#3B82F6',
+                'icon' => 'tag',
+            ])
+            ->assertSessionHasErrors('name');
     }
 
     // ── Destroy ───────────────────────────────────────────────────────────────
@@ -111,9 +111,9 @@ class CategoryTest extends TestCase
         $cat = Category::create(['user_id' => $this->user->id, 'name' => 'Removível', 'color' => '#64748B', 'icon' => 'tag', 'is_default' => false]);
 
         $this->actingAs($this->user)
-             ->delete(route('categories.destroy', $cat))
-             ->assertRedirect(route('categories.index'))
-             ->assertSessionHas('success');
+            ->delete(route('categories.destroy', $cat))
+            ->assertRedirect(route('categories.index'))
+            ->assertSessionHas('success');
 
         $this->assertDatabaseMissing('categories', ['id' => $cat->id]);
     }
@@ -123,9 +123,9 @@ class CategoryTest extends TestCase
         $cat = Category::create(['name' => 'Padrão', 'color' => '#64748B', 'icon' => 'tag', 'is_default' => true]);
 
         $this->actingAs($this->user)
-             ->delete(route('categories.destroy', $cat))
-             ->assertRedirect()
-             ->assertSessionHas('error');
+            ->delete(route('categories.destroy', $cat))
+            ->assertRedirect()
+            ->assertSessionHas('error');
 
         $this->assertDatabaseHas('categories', ['id' => $cat->id]);
     }
@@ -135,18 +135,18 @@ class CategoryTest extends TestCase
         $cat = Category::create(['user_id' => $this->user->id, 'name' => 'Usada', 'color' => '#64748B', 'icon' => 'tag', 'is_default' => false]);
 
         Transaction::create([
-            'user_id'     => $this->user->id,
+            'user_id' => $this->user->id,
             'category_id' => $cat->id,
-            'type'        => 'expense',
-            'amount'      => 100,
+            'type' => 'expense',
+            'amount' => 100,
             'description' => 'Teste',
-            'date'        => now()->format('Y-m-d'),
+            'date' => now()->format('Y-m-d'),
         ]);
 
         $this->actingAs($this->user)
-             ->delete(route('categories.destroy', $cat))
-             ->assertRedirect()
-             ->assertSessionHas('error');
+            ->delete(route('categories.destroy', $cat))
+            ->assertRedirect()
+            ->assertSessionHas('error');
 
         $this->assertDatabaseHas('categories', ['id' => $cat->id]);
     }

@@ -13,17 +13,18 @@ class TransactionModelTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Category $category;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user     = User::factory()->create();
+        $this->user = User::factory()->create();
         $this->category = Category::create([
-            'name'  => 'Teste',
+            'name' => 'Teste',
             'color' => '#3B82F6',
-            'icon'  => 'tag',
+            'icon' => 'tag',
         ]);
     }
 
@@ -45,8 +46,8 @@ class TransactionModelTest extends TestCase
 
     public function test_type_label_returns_portuguese(): void
     {
-        $this->assertSame('Gasto',  $this->makeTransaction(['type' => 'expense'])->typeLabel());
-        $this->assertSame('Lucro',  $this->makeTransaction(['type' => 'income'])->typeLabel());
+        $this->assertSame('Gasto', $this->makeTransaction(['type' => 'expense'])->typeLabel());
+        $this->assertSame('Lucro', $this->makeTransaction(['type' => 'income'])->typeLabel());
     }
 
     public function test_formatted_amount_uses_brl_format(): void
@@ -89,12 +90,12 @@ class TransactionModelTest extends TestCase
 
         $this->makeTransaction([]);
         Transaction::create([
-            'user_id'     => $otherUser->id,
+            'user_id' => $otherUser->id,
             'category_id' => $this->category->id,
-            'type'        => 'expense',
-            'amount'      => 50,
+            'type' => 'expense',
+            'amount' => 50,
             'description' => 'outro',
-            'date'        => now()->format('Y-m-d'),
+            'date' => now()->format('Y-m-d'),
         ]);
 
         $this->assertCount(1, Transaction::ofUser($this->user->id)->get());
@@ -121,12 +122,12 @@ class TransactionModelTest extends TestCase
     private function makeTransaction(array $attrs): Transaction
     {
         return Transaction::create(array_merge([
-            'user_id'     => $this->user->id,
+            'user_id' => $this->user->id,
             'category_id' => $this->category->id,
-            'type'        => 'expense',
-            'amount'      => 100.00,
+            'type' => 'expense',
+            'amount' => 100.00,
             'description' => 'Teste',
-            'date'        => now()->format('Y-m-d'),
+            'date' => now()->format('Y-m-d'),
         ], $attrs));
     }
 }

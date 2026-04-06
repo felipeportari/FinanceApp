@@ -35,7 +35,7 @@ class FinancialService
 
     public function totalBalance(): float
     {
-        $income  = (float) Transaction::ofUser($this->userId)->incomes()->sum('amount');
+        $income = (float) Transaction::ofUser($this->userId)->incomes()->sum('amount');
         $expense = (float) Transaction::ofUser($this->userId)->expenses()->sum('amount');
 
         return $income - $expense;
@@ -50,7 +50,7 @@ class FinancialService
     public function expensesByCategory(?string $month = null, ?string $year = null): Collection
     {
         $month = $month ?? now()->month;
-        $year  = $year  ?? now()->year;
+        $year = $year ?? now()->year;
 
         return Transaction::ofUser($this->userId)
             ->expenses()
@@ -91,10 +91,10 @@ class FinancialService
                 ->sum('amount');
 
             $results->push([
-                'month'    => $date->format('M/Y'),
+                'month' => $date->format('M/Y'),
                 'expenses' => $expenses,
-                'incomes'  => $incomes,
-                'balance'  => $incomes - $expenses,
+                'incomes' => $incomes,
+                'balance' => $incomes - $expenses,
             ]);
         }
 
@@ -125,11 +125,11 @@ class FinancialService
             'period' => 'últimos 6 meses',
             'monthly_summary' => $evolution->toArray(),
             'current_month' => [
-                'expenses'   => $this->currentMonthExpenses(),
-                'incomes'    => $this->currentMonthIncomes(),
-                'balance'    => $this->currentMonthBalance(),
+                'expenses' => $this->currentMonthExpenses(),
+                'incomes' => $this->currentMonthIncomes(),
+                'balance' => $this->currentMonthBalance(),
             ],
-            'total_balance'  => $this->totalBalance(),
+            'total_balance' => $this->totalBalance(),
             'expenses_by_category' => $byCategory->toArray(),
             'top_expense_category' => $this->topExpenseCategory(),
             'recent_transactions' => Transaction::ofUser($this->userId)
@@ -138,11 +138,11 @@ class FinancialService
                 ->limit(20)
                 ->get(['type', 'amount', 'description', 'date', 'category_id'])
                 ->map(fn ($t) => [
-                    'type'        => $t->typeLabel(),
-                    'amount'      => (float) $t->amount,
+                    'type' => $t->typeLabel(),
+                    'amount' => (float) $t->amount,
                     'description' => $t->description,
-                    'date'        => $t->date->format('d/m/Y'),
-                    'category'    => $t->category?->name,
+                    'date' => $t->date->format('d/m/Y'),
+                    'category' => $t->category?->name,
                 ])
                 ->toArray(),
         ];
@@ -157,24 +157,24 @@ class FinancialService
             ->orderByDesc('date')
             ->orderByDesc('id');
 
-        if (!empty($filters['type'])) {
+        if (! empty($filters['type'])) {
             $query->where('type', $filters['type']);
         }
 
-        if (!empty($filters['category_id'])) {
+        if (! empty($filters['category_id'])) {
             $query->where('category_id', $filters['category_id']);
         }
 
-        if (!empty($filters['month'])) {
+        if (! empty($filters['month'])) {
             $query->whereMonth('date', $filters['month']);
         }
 
-        if (!empty($filters['year'])) {
+        if (! empty($filters['year'])) {
             $query->whereYear('date', $filters['year']);
         }
 
-        if (!empty($filters['search'])) {
-            $query->where('description', 'like', '%' . $filters['search'] . '%');
+        if (! empty($filters['search'])) {
+            $query->where('description', 'like', '%'.$filters['search'].'%');
         }
 
         return $query->paginate($perPage)->withQueryString();

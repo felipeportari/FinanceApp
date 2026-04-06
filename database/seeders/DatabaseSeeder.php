@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Transaction;
 use App\Models\Category;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
         $user = User::firstOrCreate(
             ['email' => 'demo@financeapp.com'],
             [
-                'name'     => 'Demo User',
+                'name' => 'Demo User',
                 'password' => bcrypt('password'),
-                'theme'    => 'light',
+                'theme' => 'light',
             ]
         );
 
@@ -62,12 +62,12 @@ class DatabaseSeeder extends Seeder
 
         foreach ($transactions as $t) {
             Transaction::create([
-                'user_id'     => $userId,
+                'user_id' => $userId,
                 'category_id' => $categories[$t['category']],
-                'type'        => $t['type'],
-                'amount'      => $t['amount'],
+                'type' => $t['type'],
+                'amount' => $t['amount'],
                 'description' => $t['description'],
-                'date'        => now()->subDays($t['days_ago'])->format('Y-m-d'),
+                'date' => now()->subDays($t['days_ago'])->format('Y-m-d'),
             ]);
         }
     }

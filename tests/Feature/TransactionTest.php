@@ -13,13 +13,14 @@ class TransactionTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Category $category;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user     = User::factory()->create();
+        $this->user = User::factory()->create();
         $this->category = Category::create(['name' => 'Lazer', 'color' => '#8B5CF6', 'icon' => 'tag']);
     }
 
@@ -33,9 +34,9 @@ class TransactionTest extends TestCase
     public function test_index_loads_for_authenticated_user(): void
     {
         $this->actingAs($this->user)
-             ->get(route('transactions.index'))
-             ->assertOk()
-             ->assertViewIs('transactions.index');
+            ->get(route('transactions.index'))
+            ->assertOk()
+            ->assertViewIs('transactions.index');
     }
 
     public function test_index_shows_only_own_transactions(): void
@@ -44,18 +45,18 @@ class TransactionTest extends TestCase
 
         $this->tx(['description' => 'Minha transação']);
         Transaction::create([
-            'user_id'     => $otherUser->id,
+            'user_id' => $otherUser->id,
             'category_id' => $this->category->id,
-            'type'        => 'expense',
-            'amount'      => 50,
+            'type' => 'expense',
+            'amount' => 50,
             'description' => 'Transação alheia',
-            'date'        => now()->format('Y-m-d'),
+            'date' => now()->format('Y-m-d'),
         ]);
 
         $this->actingAs($this->user)
-             ->get(route('transactions.index'))
-             ->assertSee('Minha transação')
-             ->assertDontSee('Transação alheia');
+            ->get(route('transactions.index'))
+            ->assertSee('Minha transação')
+            ->assertDontSee('Transação alheia');
     }
 
     public function test_index_filter_by_type_expense(): void
@@ -64,9 +65,9 @@ class TransactionTest extends TestCase
         $this->tx(['type' => 'income',  'description' => 'Lucro aqui']);
 
         $this->actingAs($this->user)
-             ->get(route('transactions.index', ['type' => 'expense']))
-             ->assertSee('Gasto aqui')
-             ->assertDontSee('Lucro aqui');
+            ->get(route('transactions.index', ['type' => 'expense']))
+            ->assertSee('Gasto aqui')
+            ->assertDontSee('Lucro aqui');
     }
 
     public function test_index_filter_by_search(): void
@@ -75,9 +76,9 @@ class TransactionTest extends TestCase
         $this->tx(['description' => 'Academia']);
 
         $this->actingAs($this->user)
-             ->get(route('transactions.index', ['search' => 'Supermercado']))
-             ->assertSee('Supermercado')
-             ->assertDontSee('Academia');
+            ->get(route('transactions.index', ['search' => 'Supermercado']))
+            ->assertSee('Supermercado')
+            ->assertDontSee('Academia');
     }
 
     // ── Create ────────────────────────────────────────────────────────────────
@@ -85,9 +86,9 @@ class TransactionTest extends TestCase
     public function test_create_page_loads(): void
     {
         $this->actingAs($this->user)
-             ->get(route('transactions.create'))
-             ->assertOk()
-             ->assertViewIs('transactions.create');
+            ->get(route('transactions.create'))
+            ->assertOk()
+            ->assertViewIs('transactions.create');
     }
 
     // ── Store ─────────────────────────────────────────────────────────────────
@@ -95,19 +96,19 @@ class TransactionTest extends TestCase
     public function test_user_can_store_expense_transaction(): void
     {
         $this->actingAs($this->user)
-             ->post(route('transactions.store'), [
-                 'type'        => 'expense',
-                 'amount'      => 150.00,
-                 'category_id' => $this->category->id,
-                 'description' => 'Supermercado',
-                 'date'        => now()->format('Y-m-d'),
-             ])
-             ->assertRedirect(route('transactions.index'))
-             ->assertSessionHas('success');
+            ->post(route('transactions.store'), [
+                'type' => 'expense',
+                'amount' => 150.00,
+                'category_id' => $this->category->id,
+                'description' => 'Supermercado',
+                'date' => now()->format('Y-m-d'),
+            ])
+            ->assertRedirect(route('transactions.index'))
+            ->assertSessionHas('success');
 
         $this->assertDatabaseHas('transactions', [
-            'user_id'     => $this->user->id,
-            'type'        => 'expense',
+            'user_id' => $this->user->id,
+            'type' => 'expense',
             'description' => 'Supermercado',
         ]);
     }
@@ -115,14 +116,14 @@ class TransactionTest extends TestCase
     public function test_user_can_store_income_transaction(): void
     {
         $this->actingAs($this->user)
-             ->post(route('transactions.store'), [
-                 'type'        => 'income',
-                 'amount'      => 5000.00,
-                 'category_id' => $this->category->id,
-                 'description' => 'Salário',
-                 'date'        => now()->format('Y-m-d'),
-             ])
-             ->assertRedirect(route('transactions.index'));
+            ->post(route('transactions.store'), [
+                'type' => 'income',
+                'amount' => 5000.00,
+                'category_id' => $this->category->id,
+                'description' => 'Salário',
+                'date' => now()->format('Y-m-d'),
+            ])
+            ->assertRedirect(route('transactions.index'));
 
         $this->assertDatabaseHas('transactions', ['type' => 'income', 'description' => 'Salário']);
     }
@@ -130,73 +131,73 @@ class TransactionTest extends TestCase
     public function test_store_validates_required_fields(): void
     {
         $this->actingAs($this->user)
-             ->post(route('transactions.store'), [])
-             ->assertSessionHasErrors(['type', 'amount', 'category_id', 'description', 'date']);
+            ->post(route('transactions.store'), [])
+            ->assertSessionHasErrors(['type', 'amount', 'category_id', 'description', 'date']);
     }
 
     public function test_store_rejects_invalid_type(): void
     {
         $this->actingAs($this->user)
-             ->post(route('transactions.store'), [
-                 'type'        => 'invalid',
-                 'amount'      => 100,
-                 'category_id' => $this->category->id,
-                 'description' => 'Test',
-                 'date'        => now()->format('Y-m-d'),
-             ])
-             ->assertSessionHasErrors('type');
+            ->post(route('transactions.store'), [
+                'type' => 'invalid',
+                'amount' => 100,
+                'category_id' => $this->category->id,
+                'description' => 'Test',
+                'date' => now()->format('Y-m-d'),
+            ])
+            ->assertSessionHasErrors('type');
     }
 
     public function test_store_rejects_zero_amount(): void
     {
         $this->actingAs($this->user)
-             ->post(route('transactions.store'), [
-                 'type'        => 'expense',
-                 'amount'      => 0,
-                 'category_id' => $this->category->id,
-                 'description' => 'Test',
-                 'date'        => now()->format('Y-m-d'),
-             ])
-             ->assertSessionHasErrors('amount');
+            ->post(route('transactions.store'), [
+                'type' => 'expense',
+                'amount' => 0,
+                'category_id' => $this->category->id,
+                'description' => 'Test',
+                'date' => now()->format('Y-m-d'),
+            ])
+            ->assertSessionHasErrors('amount');
     }
 
     public function test_store_rejects_negative_amount(): void
     {
         $this->actingAs($this->user)
-             ->post(route('transactions.store'), [
-                 'type'        => 'expense',
-                 'amount'      => -100,
-                 'category_id' => $this->category->id,
-                 'description' => 'Test',
-                 'date'        => now()->format('Y-m-d'),
-             ])
-             ->assertSessionHasErrors('amount');
+            ->post(route('transactions.store'), [
+                'type' => 'expense',
+                'amount' => -100,
+                'category_id' => $this->category->id,
+                'description' => 'Test',
+                'date' => now()->format('Y-m-d'),
+            ])
+            ->assertSessionHasErrors('amount');
     }
 
     public function test_store_rejects_future_date(): void
     {
         $this->actingAs($this->user)
-             ->post(route('transactions.store'), [
-                 'type'        => 'expense',
-                 'amount'      => 100,
-                 'category_id' => $this->category->id,
-                 'description' => 'Test',
-                 'date'        => now()->addDay()->format('Y-m-d'),
-             ])
-             ->assertSessionHasErrors('date');
+            ->post(route('transactions.store'), [
+                'type' => 'expense',
+                'amount' => 100,
+                'category_id' => $this->category->id,
+                'description' => 'Test',
+                'date' => now()->addDay()->format('Y-m-d'),
+            ])
+            ->assertSessionHasErrors('date');
     }
 
     public function test_store_rejects_nonexistent_category(): void
     {
         $this->actingAs($this->user)
-             ->post(route('transactions.store'), [
-                 'type'        => 'expense',
-                 'amount'      => 100,
-                 'category_id' => 99999,
-                 'description' => 'Test',
-                 'date'        => now()->format('Y-m-d'),
-             ])
-             ->assertSessionHasErrors('category_id');
+            ->post(route('transactions.store'), [
+                'type' => 'expense',
+                'amount' => 100,
+                'category_id' => 99999,
+                'description' => 'Test',
+                'date' => now()->format('Y-m-d'),
+            ])
+            ->assertSessionHasErrors('category_id');
     }
 
     // ── Edit / Update ──────────────────────────────────────────────────────────
@@ -206,9 +207,9 @@ class TransactionTest extends TestCase
         $t = $this->tx(['description' => 'Original']);
 
         $this->actingAs($this->user)
-             ->get(route('transactions.edit', $t))
-             ->assertOk()
-             ->assertSee('Original');
+            ->get(route('transactions.edit', $t))
+            ->assertOk()
+            ->assertSee('Original');
     }
 
     public function test_user_can_update_own_transaction(): void
@@ -216,14 +217,14 @@ class TransactionTest extends TestCase
         $t = $this->tx(['description' => 'Antes']);
 
         $this->actingAs($this->user)
-             ->put(route('transactions.update', $t), [
-                 'type'        => 'expense',
-                 'amount'      => 200,
-                 'category_id' => $this->category->id,
-                 'description' => 'Depois',
-                 'date'        => now()->format('Y-m-d'),
-             ])
-             ->assertRedirect(route('transactions.index'));
+            ->put(route('transactions.update', $t), [
+                'type' => 'expense',
+                'amount' => 200,
+                'category_id' => $this->category->id,
+                'description' => 'Depois',
+                'date' => now()->format('Y-m-d'),
+            ])
+            ->assertRedirect(route('transactions.index'));
 
         $this->assertDatabaseHas('transactions', ['id' => $t->id, 'description' => 'Depois']);
     }
@@ -232,17 +233,17 @@ class TransactionTest extends TestCase
     {
         $otherUser = User::factory()->create();
         $t = Transaction::create([
-            'user_id'     => $otherUser->id,
+            'user_id' => $otherUser->id,
             'category_id' => $this->category->id,
-            'type'        => 'expense',
-            'amount'      => 100,
+            'type' => 'expense',
+            'amount' => 100,
             'description' => 'Alheia',
-            'date'        => now()->format('Y-m-d'),
+            'date' => now()->format('Y-m-d'),
         ]);
 
         $this->actingAs($this->user)
-             ->get(route('transactions.edit', $t))
-             ->assertForbidden();
+            ->get(route('transactions.edit', $t))
+            ->assertForbidden();
     }
 
     // ── Destroy ───────────────────────────────────────────────────────────────
@@ -252,9 +253,9 @@ class TransactionTest extends TestCase
         $t = $this->tx([]);
 
         $this->actingAs($this->user)
-             ->delete(route('transactions.destroy', $t))
-             ->assertRedirect(route('transactions.index'))
-             ->assertSessionHas('success');
+            ->delete(route('transactions.destroy', $t))
+            ->assertRedirect(route('transactions.index'))
+            ->assertSessionHas('success');
 
         $this->assertDatabaseMissing('transactions', ['id' => $t->id]);
     }
@@ -263,17 +264,17 @@ class TransactionTest extends TestCase
     {
         $otherUser = User::factory()->create();
         $t = Transaction::create([
-            'user_id'     => $otherUser->id,
+            'user_id' => $otherUser->id,
             'category_id' => $this->category->id,
-            'type'        => 'expense',
-            'amount'      => 100,
+            'type' => 'expense',
+            'amount' => 100,
             'description' => 'Alheia',
-            'date'        => now()->format('Y-m-d'),
+            'date' => now()->format('Y-m-d'),
         ]);
 
         $this->actingAs($this->user)
-             ->delete(route('transactions.destroy', $t))
-             ->assertForbidden();
+            ->delete(route('transactions.destroy', $t))
+            ->assertForbidden();
 
         $this->assertDatabaseHas('transactions', ['id' => $t->id]);
     }
@@ -283,12 +284,12 @@ class TransactionTest extends TestCase
     private function tx(array $attrs): Transaction
     {
         return Transaction::create(array_merge([
-            'user_id'     => $this->user->id,
+            'user_id' => $this->user->id,
             'category_id' => $this->category->id,
-            'type'        => 'expense',
-            'amount'      => 100.00,
+            'type' => 'expense',
+            'amount' => 100.00,
             'description' => 'Teste',
-            'date'        => now()->format('Y-m-d'),
+            'date' => now()->format('Y-m-d'),
         ], $attrs));
     }
 }

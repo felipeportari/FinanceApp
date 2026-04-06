@@ -11,18 +11,18 @@ class DashboardController extends Controller
     {
         $service = new FinancialService(auth()->id());
 
-        $monthlyEvolution  = $service->monthlyEvolution(6);
+        $monthlyEvolution = $service->monthlyEvolution(6);
         $expensesByCategory = $service->expensesByCategory();
-        $topCategory        = $service->topExpenseCategory();
+        $topCategory = $service->topExpenseCategory();
 
         return view('dashboard.index', [
-            'totalExpenses'      => $service->currentMonthExpenses(),
-            'totalIncomes'       => $service->currentMonthIncomes(),
-            'monthBalance'       => $service->currentMonthBalance(),
-            'totalBalance'       => $service->totalBalance(),
-            'monthlyEvolution'   => $monthlyEvolution,
+            'totalExpenses' => $service->currentMonthExpenses(),
+            'totalIncomes' => $service->currentMonthIncomes(),
+            'monthBalance' => $service->currentMonthBalance(),
+            'totalBalance' => $service->totalBalance(),
+            'monthlyEvolution' => $monthlyEvolution,
             'expensesByCategory' => $expensesByCategory,
-            'topCategory'        => $topCategory,
+            'topCategory' => $topCategory,
         ]);
     }
 }

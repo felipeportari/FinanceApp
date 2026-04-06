@@ -11,12 +11,12 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'     => User::factory(),
+            'user_id' => User::factory(),
             'category_id' => Category::inRandomOrder()->first()?->id ?? 1,
-            'type'        => $this->faker->randomElement(['expense', 'income']),
-            'amount'      => $this->faker->randomFloat(2, 10, 5000),
+            'type' => $this->faker->randomElement(['expense', 'income']),
+            'amount' => $this->faker->randomFloat(2, 10, 5000),
             'description' => $this->faker->sentence(4),
-            'date'        => $this->faker->dateTimeBetween('-6 months', 'now')->format('Y-m-d'),
+            'date' => $this->faker->dateTimeBetween('-6 months', 'now')->format('Y-m-d'),
         ];
     }
 

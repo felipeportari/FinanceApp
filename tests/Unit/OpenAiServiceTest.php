@@ -46,8 +46,8 @@ class OpenAiServiceTest extends TestCase
             ], 200),
         ]);
 
-        $service  = new OpenAiService('sk-fake-key');
-        $result   = $service->analyze(['total_balance' => -500]);
+        $service = new OpenAiService('sk-fake-key');
+        $result = $service->analyze(['total_balance' => -500]);
 
         $this->assertStringContainsString('Análise', $result);
         $this->assertStringContainsString('lazer', $result);
@@ -95,6 +95,7 @@ class OpenAiServiceTest extends TestCase
 
         Http::assertSent(function (Request $request) {
             $body = $request->data();
+
             return isset($body['messages']) &&
                    str_contains(json_encode($body['messages']), '1234.56');
         });

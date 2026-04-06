@@ -15,7 +15,7 @@ class SettingsController extends Controller
     {
         $request->validate([
             'openai_key' => ['nullable', 'string', 'max:255'],
-            'locale'     => ['nullable', 'string', 'in:pt,en,es'],
+            'locale' => ['nullable', 'string', 'in:pt,en,es'],
         ], [
             'openai_key.max' => __('app.messages.key_too_long'),
         ]);

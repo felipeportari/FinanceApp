@@ -19,10 +19,10 @@ class SetLocale
 
         app()->setLocale($locale);
 
-        Carbon::setLocale(match($locale) {
-            'pt'    => 'pt_BR',
-            'en'    => 'en',
-            'es'    => 'es',
+        Carbon::setLocale(match ($locale) {
+            'pt' => 'pt_BR',
+            'en' => 'en',
+            'es' => 'es',
             default => 'pt_BR',
         });
 

@@ -14,16 +14,18 @@ class FinancialServiceTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Category $category;
+
     private FinancialService $service;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user     = User::factory()->create();
+        $this->user = User::factory()->create();
         $this->category = Category::create(['name' => 'Lazer', 'color' => '#8B5CF6', 'icon' => 'tag']);
-        $this->service  = new FinancialService($this->user->id);
+        $this->service = new FinancialService($this->user->id);
     }
 
     // ── Current month summaries ────────────────────────────────────────────────
@@ -92,7 +94,7 @@ class FinancialServiceTest extends TestCase
 
         $this->assertCount(2, $result);
         $this->assertEquals(300.0, (float) $result->firstWhere('name', 'Lazer')->total);
-        $this->assertEquals(50.0,  (float) $result->firstWhere('name', 'Transporte')->total);
+        $this->assertEquals(50.0, (float) $result->firstWhere('name', 'Transporte')->total);
     }
 
     public function test_expenses_by_category_excludes_incomes(): void
@@ -146,10 +148,10 @@ class FinancialServiceTest extends TestCase
     public function test_monthly_evolution_contains_required_keys(): void
     {
         $month = $this->service->monthlyEvolution(1)->first();
-        $this->assertArrayHasKey('month',    $month);
+        $this->assertArrayHasKey('month', $month);
         $this->assertArrayHasKey('expenses', $month);
-        $this->assertArrayHasKey('incomes',  $month);
-        $this->assertArrayHasKey('balance',  $month);
+        $this->assertArrayHasKey('incomes', $month);
+        $this->assertArrayHasKey('balance', $month);
     }
 
     public function test_monthly_evolution_balance_is_income_minus_expense(): void
@@ -167,12 +169,12 @@ class FinancialServiceTest extends TestCase
     {
         $payload = $this->service->buildAiPayload();
 
-        $this->assertArrayHasKey('period',               $payload);
-        $this->assertArrayHasKey('monthly_summary',      $payload);
-        $this->assertArrayHasKey('current_month',        $payload);
-        $this->assertArrayHasKey('total_balance',        $payload);
+        $this->assertArrayHasKey('period', $payload);
+        $this->assertArrayHasKey('monthly_summary', $payload);
+        $this->assertArrayHasKey('current_month', $payload);
+        $this->assertArrayHasKey('total_balance', $payload);
         $this->assertArrayHasKey('expenses_by_category', $payload);
-        $this->assertArrayHasKey('recent_transactions',  $payload);
+        $this->assertArrayHasKey('recent_transactions', $payload);
     }
 
     public function test_build_ai_payload_recent_transactions_max_20(): void
@@ -189,13 +191,13 @@ class FinancialServiceTest extends TestCase
 
     public function test_service_is_isolated_per_user(): void
     {
-        $otherUser    = User::factory()->create();
+        $otherUser = User::factory()->create();
         $otherService = new FinancialService($otherUser->id);
 
         $this->tx(['type' => 'expense', 'amount' => 999, 'date' => now()]);
 
         $this->assertEquals(999.0, $this->service->currentMonthExpenses());
-        $this->assertEquals(0.0,   $otherService->currentMonthExpenses());
+        $this->assertEquals(0.0, $otherService->currentMonthExpenses());
     }
 
     // ── Paginated transactions ─────────────────────────────────────────────────
@@ -225,12 +227,12 @@ class FinancialServiceTest extends TestCase
     private function tx(array $attrs): Transaction
     {
         return Transaction::create(array_merge([
-            'user_id'     => $this->user->id,
+            'user_id' => $this->user->id,
             'category_id' => $this->category->id,
-            'type'        => 'expense',
-            'amount'      => 100.00,
+            'type' => 'expense',
+            'amount' => 100.00,
             'description' => 'Teste',
-            'date'        => now()->format('Y-m-d'),
+            'date' => now()->format('Y-m-d'),
         ], array_merge($attrs, [
             'date' => isset($attrs['date'])
                 ? (is_string($attrs['date']) ? $attrs['date'] : $attrs['date']->format('Y-m-d'))

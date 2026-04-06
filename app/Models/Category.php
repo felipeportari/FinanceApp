@@ -37,7 +37,7 @@ class Category extends Model
             if (auth()->check()) {
                 $query->where(function (Builder $q) {
                     $q->whereNull('categories.user_id')
-                      ->orWhere('categories.user_id', auth()->id());
+                        ->orWhere('categories.user_id', auth()->id());
                 });
             }
         });

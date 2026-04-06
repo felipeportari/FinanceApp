@@ -16,11 +16,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => ['required', 'email'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ], [
-            'email.required'    => __('app.messages.auth_email_required'),
-            'email.email'       => __('app.messages.auth_email_invalid'),
+            'email.required' => __('app.messages.auth_email_required'),
+            'email.email' => __('app.messages.auth_email_invalid'),
             'password.required' => __('app.messages.auth_password_required'),
         ]);
 

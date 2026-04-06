@@ -38,14 +38,14 @@ class ThemeTest extends TestCase
         $user = User::factory()->create(['theme' => 'light']);
 
         $this->actingAs($user)
-             ->post(route('theme.toggle'))
-             ->assertRedirect();
+            ->post(route('theme.toggle'))
+            ->assertRedirect();
     }
 
     public function test_is_dark_theme_helper_reflects_saved_value(): void
     {
         $light = User::factory()->create(['theme' => 'light']);
-        $dark  = User::factory()->create(['theme' => 'dark']);
+        $dark = User::factory()->create(['theme' => 'dark']);
 
         $this->assertFalse($light->isDarkTheme());
         $this->assertTrue($dark->isDarkTheme());

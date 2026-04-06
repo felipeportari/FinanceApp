@@ -14,7 +14,7 @@ class CategorySeeder extends Seeder
             ['name' => 'Esporte',                    'color' => '#16A34A', 'icon' => 'trophy',          'is_default' => true],
             ['name' => 'Remédios',                   'color' => '#EF4444', 'icon' => 'heart',           'is_default' => true],
             ['name' => 'Transporte',                 'color' => '#F59E0B', 'icon' => 'truck',           'is_default' => true],
-            ['name' => 'Máquina de Bichos de Pelúcia','color' => '#EC4899', 'icon' => 'star',           'is_default' => true],
+            ['name' => 'Máquina de Bichos de Pelúcia', 'color' => '#EC4899', 'icon' => 'star',           'is_default' => true],
             ['name' => 'Alimentação',                'color' => '#F97316', 'icon' => 'shopping-cart',   'is_default' => true],
             ['name' => 'Moradia',                    'color' => '#0EA5E9', 'icon' => 'home',            'is_default' => true],
             ['name' => 'Salário',                    'color' => '#22C55E', 'icon' => 'currency-dollar', 'is_default' => true],

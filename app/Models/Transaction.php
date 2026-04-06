@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Builder;
 
 class Transaction extends Model
 {
@@ -24,7 +24,7 @@ class Transaction extends Model
     {
         return [
             'amount' => 'decimal:2',
-            'date'   => 'date',
+            'date' => 'date',
         ];
     }
 
@@ -55,7 +55,7 @@ class Transaction extends Model
     public function scopeCurrentMonth(Builder $query): Builder
     {
         return $query->whereYear('date', now()->year)
-                     ->whereMonth('date', now()->month);
+            ->whereMonth('date', now()->month);
     }
 
     public function scopeOfUser(Builder $query, int $userId): Builder
@@ -84,6 +84,6 @@ class Transaction extends Model
 
     public function formattedAmount(): string
     {
-        return 'R$ ' . number_format($this->amount, 2, ',', '.');
+        return 'R$ '.number_format($this->amount, 2, ',', '.');
     }
 }
