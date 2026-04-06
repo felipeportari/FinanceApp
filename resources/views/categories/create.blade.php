@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Nova Categoria')
-@section('page-title', 'Nova Categoria')
-@section('page-subtitle', 'Crie uma categoria personalizada')
+@section('title', __('app.create_category.page_title'))
+@section('page-title', __('app.create_category.page_title'))
+@section('page-subtitle', __('app.create_category.page_subtitle'))
 
 @section('content')
 
@@ -14,9 +14,9 @@
 
             {{-- Name --}}
             <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Nome *</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">{{ __('app.create_category.name_label') }}</label>
                 <input type="text" name="name" value="{{ old('name') }}" required
-                       placeholder="Ex: Viagens, Pets..."
+                       placeholder="{{ __('app.create_category.name_placeholder') }}"
                        class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                 @error('name')
                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -25,7 +25,7 @@
 
             {{-- Color --}}
             <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Cor *</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">{{ __('app.create_category.color_label') }}</label>
                 <div class="flex items-center gap-3">
                     <input type="color" name="color" value="{{ old('color', '#3B82F6') }}" id="colorPicker"
                            class="w-12 h-10 rounded-lg border border-slate-300 dark:border-slate-700 cursor-pointer bg-transparent">
@@ -51,11 +51,11 @@
 
             {{-- Icon --}}
             <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Ícone (nome) *</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">{{ __('app.create_category.icon_label') }}</label>
                 <input type="text" name="icon" value="{{ old('icon', 'tag') }}"
-                       placeholder="tag, home, star..."
+                       placeholder="{{ __('app.create_category.icon_placeholder') }}"
                        class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
-                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Identificador de ícone para uso futuro.</p>
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ __('app.create_category.icon_help') }}</p>
                 @error('icon')
                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                 @enderror
@@ -65,11 +65,11 @@
             <div class="flex gap-3 pt-2">
                 <button type="submit"
                         class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-colors">
-                    Criar Categoria
+                    {{ __('app.create_category.create_btn') }}
                 </button>
                 <a href="{{ route('categories.index') }}"
                    class="px-6 py-2.5 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium rounded-lg text-sm transition-colors">
-                    Cancelar
+                    {{ __('app.common.cancel') }}
                 </a>
             </div>
         </form>

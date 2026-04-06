@@ -77,7 +77,9 @@ class Transaction extends Model
 
     public function typeLabel(): string
     {
-        return $this->type === 'expense' ? 'Gasto' : 'Lucro';
+        return $this->type === 'expense'
+            ? __('app.transactions.expense_label')
+            : __('app.transactions.income_label');
     }
 
     public function formattedAmount(): string

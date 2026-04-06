@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Transações')
-@section('page-title', 'Transações')
-@section('page-subtitle', 'Histórico completo de gastos e lucros')
+@section('title', __('app.transactions.page_title'))
+@section('page-title', __('app.transactions.page_title'))
+@section('page-subtitle', __('app.transactions.page_subtitle'))
 
 @section('content')
 
@@ -13,22 +13,22 @@
         {{-- Search --}}
         <div class="flex-1 min-w-48">
             <input type="text" name="search" value="{{ $filters['search'] ?? '' }}"
-                   placeholder="Buscar por descrição..."
+                   placeholder="{{ __('app.transactions.search_placeholder') }}"
                    class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
         </div>
 
         {{-- Type --}}
         <select name="type"
                 class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
-            <option value="">Todos os tipos</option>
-            <option value="expense" {{ ($filters['type'] ?? '') === 'expense' ? 'selected' : '' }}>Gastos</option>
-            <option value="income"  {{ ($filters['type'] ?? '') === 'income'  ? 'selected' : '' }}>Lucros</option>
+            <option value="">{{ __('app.transactions.all_types') }}</option>
+            <option value="expense" {{ ($filters['type'] ?? '') === 'expense' ? 'selected' : '' }}>{{ __('app.transactions.expenses') }}</option>
+            <option value="income"  {{ ($filters['type'] ?? '') === 'income'  ? 'selected' : '' }}>{{ __('app.transactions.income') }}</option>
         </select>
 
         {{-- Category --}}
         <select name="category_id"
                 class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
-            <option value="">Todas as categorias</option>
+            <option value="">{{ __('app.transactions.all_categories') }}</option>
             @foreach($categories as $cat)
                 <option value="{{ $cat->id }}" {{ ($filters['category_id'] ?? '') == $cat->id ? 'selected' : '' }}>
                     {{ $cat->name }}
@@ -39,10 +39,10 @@
         {{-- Month --}}
         <select name="month"
                 class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
-            <option value="">Todos os meses</option>
+            <option value="">{{ __('app.transactions.all_months') }}</option>
             @foreach(range(1, 12) as $m)
                 <option value="{{ $m }}" {{ ($filters['month'] ?? '') == $m ? 'selected' : '' }}>
-                    {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
+                    {{ \Carbon\Carbon::create()->month($m)->isoFormat('MMMM') }}
                 </option>
             @endforeach
         </select>
@@ -50,19 +50,19 @@
         {{-- Year --}}
         <select name="year"
                 class="px-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
-            <option value="">Todos os anos</option>
+            <option value="">{{ __('app.transactions.all_years') }}</option>
             @foreach(range(now()->year, now()->year - 3) as $y)
                 <option value="{{ $y }}" {{ ($filters['year'] ?? '') == $y ? 'selected' : '' }}>{{ $y }}</option>
             @endforeach
         </select>
 
         <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg">
-            Filtrar
+            {{ __('app.transactions.filter') }}
         </button>
 
         @if(array_filter($filters))
             <a href="{{ route('transactions.index') }}" class="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:underline self-center">
-                Limpar
+                {{ __('app.transactions.clear') }}
             </a>
         @endif
     </form>
@@ -73,14 +73,14 @@
 
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-800">
         <p class="text-sm text-slate-500 dark:text-slate-400">
-            <span class="font-semibold text-slate-800 dark:text-white">{{ $transactions->total() }}</span> transações encontradas
+            <span class="font-semibold text-slate-800 dark:text-white">{{ $transactions->total() }}</span> {{ __('app.transactions.results_label') }}
         </p>
         <a href="{{ route('transactions.create') }}"
            class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Nova Transação
+            {{ __('app.transactions.new_transaction') }}
         </a>
     </div>
 
@@ -89,9 +89,9 @@
             <svg class="w-12 h-12 text-slate-300 dark:text-slate-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
             </svg>
-            <p class="text-slate-500 dark:text-slate-400">Nenhuma transação encontrada.</p>
+            <p class="text-slate-500 dark:text-slate-400">{{ __('app.transactions.no_found') }}</p>
             <a href="{{ route('transactions.create') }}" class="mt-3 inline-block text-sm text-emerald-600 hover:underline">
-                Adicionar primeira transação
+                {{ __('app.transactions.add_first') }}
             </a>
         </div>
     @else
@@ -99,11 +99,11 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="bg-slate-50 dark:bg-slate-800/50">
-                        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Descrição</th>
-                        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Categoria</th>
-                        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Data</th>
-                        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tipo</th>
-                        <th class="text-right px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Valor</th>
+                        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ __('app.transactions.col_description') }}</th>
+                        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ __('app.transactions.col_category') }}</th>
+                        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ __('app.transactions.col_date') }}</th>
+                        <th class="text-left px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ __('app.transactions.col_type') }}</th>
+                        <th class="text-right px-5 py-3 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ __('app.transactions.col_amount') }}</th>
                         <th class="px-5 py-3"></th>
                     </tr>
                 </thead>
@@ -139,7 +139,7 @@
                                         </svg>
                                     </a>
                                     <form method="POST" action="{{ route('transactions.destroy', $t) }}"
-                                          onsubmit="return confirm('Remover esta transação?')">
+                                          onsubmit="return confirm('{{ __('app.transactions.remove_confirm') }}')">
                                         @csrf @method('DELETE')
                                         <button type="submit" class="text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

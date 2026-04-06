@@ -36,7 +36,7 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->route('transactions.index')
-            ->with('success', 'Transação registrada com sucesso!');
+            ->with('success', __('app.messages.transaction_stored'));
     }
 
     public function edit(Transaction $transaction)
@@ -55,7 +55,7 @@ class TransactionController extends Controller
         $transaction->update($request->validated());
 
         return redirect()->route('transactions.index')
-            ->with('success', 'Transação atualizada com sucesso!');
+            ->with('success', __('app.messages.transaction_updated'));
     }
 
     public function destroy(Transaction $transaction)
@@ -65,11 +65,11 @@ class TransactionController extends Controller
         $transaction->delete();
 
         return redirect()->route('transactions.index')
-            ->with('success', 'Transação removida com sucesso!');
+            ->with('success', __('app.messages.transaction_deleted'));
     }
 
     private function authorizeTransaction(Transaction $transaction): void
     {
-        abort_if($transaction->user_id !== auth()->id(), 403, 'Acesso não autorizado.');
+        abort_if($transaction->user_id !== auth()->id(), 403, __('app.messages.unauthorized'));
     }
 }

@@ -19,9 +19,9 @@ class AuthController extends Controller
             'email'    => ['required', 'email'],
             'password' => ['required'],
         ], [
-            'email.required'    => 'O e-mail é obrigatório.',
-            'email.email'       => 'Digite um e-mail válido.',
-            'password.required' => 'A senha é obrigatória.',
+            'email.required'    => __('app.messages.auth_email_required'),
+            'email.email'       => __('app.messages.auth_email_invalid'),
+            'password.required' => __('app.messages.auth_password_required'),
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
@@ -31,7 +31,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Credenciais inválidas. Tente novamente.',
+            'email' => __('app.messages.auth_invalid_credentials'),
         ])->onlyInput('email');
     }
 

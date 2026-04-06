@@ -1,0 +1,183 @@
+<?php
+
+return [
+
+    // ── Common ────────────────────────────────────────────────────────────────
+    'common' => [
+        'app_subtitle'    => 'Gestão Financeira',
+        'save'            => 'Salvar',
+        'cancel'          => 'Cancelar',
+        'new_transaction' => 'Nova Transação',
+        'toggle_theme'    => 'Alternar tema',
+        'logout'          => 'Sair',
+    ],
+
+    // ── Navigation ────────────────────────────────────────────────────────────
+    'nav' => [
+        'section_main'          => 'Principal',
+        'dashboard'             => 'Dashboard',
+        'transactions'          => 'Transações',
+        'categories'            => 'Categorias',
+        'section_intelligence'  => 'Inteligência',
+        'ai_analysis'           => 'Análise Inteligente',
+        'section_account'       => 'Conta',
+        'settings'              => 'Configurações',
+    ],
+
+    // ── Auth ──────────────────────────────────────────────────────────────────
+    'auth' => [
+        'subtitle'    => 'Gestão financeira inteligente',
+        'email'       => 'E-mail',
+        'password'    => 'Senha',
+        'remember_me' => 'Lembrar-me',
+        'sign_in'     => 'Entrar',
+        'demo_label'  => 'Demo',
+    ],
+
+    // ── Dashboard ─────────────────────────────────────────────────────────────
+    'dashboard' => [
+        'subtitle'              => 'Visão geral financeira de :month',
+        'monthly_expenses'      => 'Gastos no Mês',
+        'monthly_income'        => 'Lucros no Mês',
+        'monthly_balance'       => 'Saldo do Mês',
+        'total_balance'         => 'Saldo Total',
+        'monthly_evolution'     => 'Evolução Mensal',
+        'expenses_vs_income'    => 'Gastos vs Lucros — últimos 6 meses',
+        'expenses_by_category'  => 'Gastos por Categoria',
+        'current_month'         => 'Mês atual',
+        'no_expenses_month'     => 'Nenhum gasto registrado neste mês.',
+        'top_impact'            => 'Maior Impacto',
+        'top_category_label'    => 'categoria com mais gastos',
+        'no_expenses'           => 'Nenhum gasto registrado.',
+        'recent_transactions'   => 'Últimas Transações',
+        'view_all'              => 'Ver todas',
+        'no_transactions'       => 'Nenhuma transação registrada.',
+        'chart_expenses'        => 'Gastos',
+        'chart_income'          => 'Lucros',
+    ],
+
+    // ── Transactions ──────────────────────────────────────────────────────────
+    'transactions' => [
+        'page_title'          => 'Transações',
+        'page_subtitle'       => 'Histórico completo de gastos e lucros',
+        'search_placeholder'  => 'Buscar por descrição...',
+        'all_types'           => 'Todos os tipos',
+        'expenses'            => 'Gastos',
+        'income'              => 'Lucros',
+        'all_categories'      => 'Todas as categorias',
+        'all_months'          => 'Todos os meses',
+        'all_years'           => 'Todos os anos',
+        'filter'              => 'Filtrar',
+        'clear'               => 'Limpar',
+        'results_label'       => 'transações encontradas',
+        'new_transaction'     => 'Nova Transação',
+        'no_found'            => 'Nenhuma transação encontrada.',
+        'add_first'           => 'Adicionar primeira transação',
+        'col_description'     => 'Descrição',
+        'col_category'        => 'Categoria',
+        'col_date'            => 'Data',
+        'col_type'            => 'Tipo',
+        'col_amount'          => 'Valor',
+        'remove_confirm'      => 'Remover esta transação?',
+        'expense_label'       => 'Gasto',
+        'income_label'        => 'Lucro',
+    ],
+
+    // ── Create / Edit Transaction ─────────────────────────────────────────────
+    'create_transaction' => [
+        'page_title'              => 'Nova Transação',
+        'page_subtitle'           => 'Registre um gasto ou lucro',
+        'type_label'              => 'Tipo *',
+        'amount_label'            => 'Valor *',
+        'category_label'          => 'Categoria *',
+        'select_category'         => 'Selecione uma categoria',
+        'description_label'       => 'Descrição *',
+        'description_placeholder' => 'Ex: Supermercado, Salário mensal...',
+        'date_label'              => 'Data *',
+        'save_btn'                => 'Salvar Transação',
+    ],
+
+    'edit_transaction' => [
+        'page_title'    => 'Editar Transação',
+        'page_subtitle' => 'Atualize os dados da transação',
+        'update_btn'    => 'Atualizar Transação',
+    ],
+
+    // ── Categories ────────────────────────────────────────────────────────────
+    'categories' => [
+        'page_title'        => 'Categorias',
+        'page_subtitle'     => 'Gerencie as categorias de transações',
+        'new_category'      => 'Nova Categoria',
+        'default_badge'     => 'padrão',
+        'remove_confirm'    => 'Remover categoria :name?',
+        'no_categories'     => 'Nenhuma categoria encontrada.',
+        'transaction_count' => ':count transação|:count transações',
+    ],
+
+    // ── Create Category ───────────────────────────────────────────────────────
+    'create_category' => [
+        'page_title'       => 'Nova Categoria',
+        'page_subtitle'    => 'Crie uma categoria personalizada',
+        'name_label'       => 'Nome *',
+        'name_placeholder' => 'Ex: Viagens, Pets...',
+        'color_label'      => 'Cor *',
+        'icon_label'       => 'Ícone (nome) *',
+        'icon_placeholder' => 'tag, home, star...',
+        'icon_help'        => 'Identificador de ícone para uso futuro.',
+        'create_btn'       => 'Criar Categoria',
+    ],
+
+    // ── Settings ──────────────────────────────────────────────────────────────
+    'settings' => [
+        'page_title'       => 'Configurações',
+        'page_subtitle'    => 'Gerencie suas integrações e preferências.',
+        'ai_title'         => 'Análise com IA',
+        'ai_desc'          => 'Configure sua chave da OpenAI para usar a análise financeira inteligente.',
+        'openai_key_label' => 'API Key da OpenAI',
+        'key_configured'   => 'Chave configurada. Preencha abaixo para substituir.',
+        'key_info'         => 'Sua chave é armazenada de forma encriptada. Obtenha a sua em',
+        'remove_key'       => 'Remover chave existente',
+        'save'             => 'Salvar',
+        'saved'            => 'Configurações salvas com sucesso!',
+        'lang_title'       => 'Idioma',
+        'lang_desc'        => 'Escolha o idioma da interface.',
+        'lang_label'       => 'Idioma',
+        'lang_pt'          => 'Português',
+        'lang_en'          => 'English',
+        'lang_es'          => 'Español',
+    ],
+
+    // ── AI Analysis ───────────────────────────────────────────────────────────
+    'ai' => [
+        'page_title'         => 'Análise Inteligente',
+        'page_subtitle'      => 'Diagnóstico financeiro gerado por IA',
+        'card_title'         => 'Consultor Financeiro com IA',
+        'card_desc'          => 'Análise estratégica baseada nas suas transações dos últimos 6 meses. O sistema envia seus dados financeiros para a OpenAI e retorna insights personalizados.',
+        'api_not_configured' => 'API Key não configurada',
+        'api_config_hint'    => 'Para ativar a análise inteligente, adicione sua chave da OpenAI nas',
+        'settings_link'      => 'Configurações',
+        'generate_btn'       => 'Gerar Análise Financeira',
+        'analyzing'          => 'Analisando seus dados...',
+        'analysis_generated' => 'Análise gerada em',
+    ],
+
+    // ── Flash / Controller messages ───────────────────────────────────────────
+    'messages' => [
+        'transaction_stored'         => 'Transação registrada com sucesso!',
+        'transaction_updated'        => 'Transação atualizada com sucesso!',
+        'transaction_deleted'        => 'Transação removida com sucesso!',
+        'category_created'           => 'Categoria criada com sucesso!',
+        'category_default_error'     => 'Categorias padrão não podem ser removidas.',
+        'category_has_transactions'  => 'Não é possível remover uma categoria com transações vinculadas.',
+        'category_deleted'           => 'Categoria removida com sucesso!',
+        'key_too_long'               => 'A chave é muito longa.',
+        'api_not_configured'         => 'API Key da OpenAI não configurada. Adicione sua chave nas configurações.',
+        'openai_error'               => 'Falha ao conectar com a OpenAI. Verifique sua API Key nas configurações.',
+        'auth_email_required'        => 'O e-mail é obrigatório.',
+        'auth_email_invalid'         => 'Digite um e-mail válido.',
+        'auth_password_required'     => 'A senha é obrigatória.',
+        'auth_invalid_credentials'   => 'Credenciais inválidas. Tente novamente.',
+        'unauthorized'               => 'Acesso não autorizado.',
+    ],
+
+];

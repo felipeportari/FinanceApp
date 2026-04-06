@@ -2,7 +2,7 @@
 
 @section('title', 'Dashboard')
 @section('page-title', 'Dashboard')
-@section('page-subtitle', 'Visão geral financeira de ' . now()->translatedFormat('F Y'))
+@section('page-subtitle', __('app.dashboard.subtitle', ['month' => now()->isoFormat('MMMM YYYY')]))
 
 @section('content')
 
@@ -12,7 +12,7 @@
     @php
         $cards = [
             [
-                'label'  => 'Gastos no Mês',
+                'label'  => __('app.dashboard.monthly_expenses'),
                 'value'  => $totalExpenses,
                 'icon'   => 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z',
                 'color'  => 'text-red-600 dark:text-red-400',
@@ -20,7 +20,7 @@
                 'prefix' => '-',
             ],
             [
-                'label'  => 'Lucros no Mês',
+                'label'  => __('app.dashboard.monthly_income'),
                 'value'  => $totalIncomes,
                 'icon'   => 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
                 'color'  => 'text-green-600 dark:text-green-400',
@@ -28,7 +28,7 @@
                 'prefix' => '+',
             ],
             [
-                'label'  => 'Saldo do Mês',
+                'label'  => __('app.dashboard.monthly_balance'),
                 'value'  => $monthBalance,
                 'icon'   => 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
                 'color'  => $monthBalance >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400',
@@ -36,7 +36,7 @@
                 'prefix' => $monthBalance >= 0 ? '+' : '',
             ],
             [
-                'label'  => 'Saldo Total',
+                'label'  => __('app.dashboard.total_balance'),
                 'value'  => $totalBalance,
                 'icon'   => 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3',
                 'color'  => $totalBalance >= 0 ? 'text-slate-700 dark:text-slate-200' : 'text-red-600 dark:text-red-400',
@@ -70,8 +70,8 @@
     <div class="xl:col-span-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
         <div class="flex items-center justify-between mb-5">
             <div>
-                <h3 class="font-semibold text-slate-800 dark:text-white">Evolução Mensal</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Gastos vs Lucros — últimos 6 meses</p>
+                <h3 class="font-semibold text-slate-800 dark:text-white">{{ __('app.dashboard.monthly_evolution') }}</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('app.dashboard.expenses_vs_income') }}</p>
             </div>
         </div>
         <div class="relative h-64">
@@ -82,12 +82,12 @@
     {{-- Expenses by Category (1/3 width) --}}
     <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
         <div class="mb-5">
-            <h3 class="font-semibold text-slate-800 dark:text-white">Gastos por Categoria</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400">Mês atual</p>
+            <h3 class="font-semibold text-slate-800 dark:text-white">{{ __('app.dashboard.expenses_by_category') }}</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('app.dashboard.current_month') }}</p>
         </div>
         @if($expensesByCategory->isEmpty())
             <div class="h-64 flex items-center justify-center text-sm text-slate-400">
-                Nenhum gasto registrado neste mês.
+                {{ __('app.dashboard.no_expenses_month') }}
             </div>
         @else
             <div class="relative h-48 mb-4">
@@ -114,7 +114,7 @@
 
     {{-- Top Impact Category --}}
     <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
-        <h3 class="font-semibold text-slate-800 dark:text-white mb-4">Maior Impacto</h3>
+        <h3 class="font-semibold text-slate-800 dark:text-white mb-4">{{ __('app.dashboard.top_impact') }}</h3>
         @if($topCategory)
             <div class="flex flex-col items-center text-center py-4">
                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-3" style="background-color: {{ $topCategory['color'] }}22; border: 2px solid {{ $topCategory['color'] }}44">
@@ -124,18 +124,18 @@
                 <p class="text-2xl font-bold mt-1" style="color: {{ $topCategory['color'] }}">
                     R$ {{ number_format($topCategory['total'], 2, ',', '.') }}
                 </p>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">categoria com mais gastos</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('app.dashboard.top_category_label') }}</p>
             </div>
         @else
-            <p class="text-sm text-slate-400 text-center py-8">Nenhum gasto registrado.</p>
+            <p class="text-sm text-slate-400 text-center py-8">{{ __('app.dashboard.no_expenses') }}</p>
         @endif
     </div>
 
     {{-- Recent Transactions --}}
     <div class="xl:col-span-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
         <div class="flex items-center justify-between mb-4">
-            <h3 class="font-semibold text-slate-800 dark:text-white">Últimas Transações</h3>
-            <a href="{{ route('transactions.index') }}" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline">Ver todas</a>
+            <h3 class="font-semibold text-slate-800 dark:text-white">{{ __('app.dashboard.recent_transactions') }}</h3>
+            <a href="{{ route('transactions.index') }}" class="text-xs text-emerald-600 dark:text-emerald-400 hover:underline">{{ __('app.dashboard.view_all') }}</a>
         </div>
 
         @php
@@ -146,7 +146,7 @@
         @endphp
 
         @if($recent->isEmpty())
-            <p class="text-sm text-slate-400 text-center py-8">Nenhuma transação registrada.</p>
+            <p class="text-sm text-slate-400 text-center py-8">{{ __('app.dashboard.no_transactions') }}</p>
         @else
             <div class="space-y-3">
                 @foreach($recent as $t)
@@ -190,13 +190,13 @@ new Chart(document.getElementById('evolutionChart'), {
         labels: evolutionData.map(d => d.month),
         datasets: [
             {
-                label: 'Gastos',
+                label: '{{ __('app.dashboard.chart_expenses') }}',
                 data: evolutionData.map(d => d.expenses),
                 backgroundColor: 'rgba(239,68,68,0.7)',
                 borderRadius: 6,
             },
             {
-                label: 'Lucros',
+                label: '{{ __('app.dashboard.chart_income') }}',
                 data: evolutionData.map(d => d.incomes),
                 backgroundColor: 'rgba(34,197,94,0.7)',
                 borderRadius: 6,

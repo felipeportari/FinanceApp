@@ -19,7 +19,7 @@ class AiAnalysisController extends Controller
     public function analyze(Request $request)
     {
         if (!OpenAiService::isConfigured()) {
-            return back()->with('error', 'API Key da OpenAI não configurada. Adicione sua chave nas configurações.');
+            return back()->with('error', __('app.messages.api_not_configured'));
         }
 
         try {

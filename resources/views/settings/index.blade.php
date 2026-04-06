@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Configurações')
+@section('title', __('app.settings.page_title'))
 
 @section('content')
 <div class="max-w-2xl mx-auto space-y-6">
 
     {{-- Header --}}
     <div>
-        <h1 class="text-2xl font-bold text-slate-800 dark:text-white">Configurações</h1>
-        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Gerencie suas integrações e preferências.</p>
+        <h1 class="text-2xl font-bold text-slate-800 dark:text-white">{{ __('app.settings.page_title') }}</h1>
+        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">{{ __('app.settings.page_subtitle') }}</p>
     </div>
 
     {{-- Alerts --}}
@@ -24,29 +24,57 @@
         </div>
     @endif
 
-    {{-- OpenAI Card --}}
-    <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+    <form method="POST" action="{{ route('settings.update') }}" class="space-y-6">
+        @csrf
+        @method('PUT')
 
-        <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                <svg class="w-5 h-5 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                </svg>
+        {{-- Language Card --}}
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-base font-semibold text-slate-800 dark:text-white">{{ __('app.settings.lang_title') }}</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('app.settings.lang_desc') }}</p>
+                </div>
             </div>
+
             <div>
-                <h2 class="text-base font-semibold text-slate-800 dark:text-white">Análise com IA</h2>
-                <p class="text-sm text-slate-500 dark:text-slate-400">Configure sua chave da OpenAI para usar a análise financeira inteligente.</p>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                    {{ __('app.settings.lang_label') }}
+                </label>
+                <select name="locale"
+                        class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
+                    <option value="pt" {{ auth()->user()->locale === 'pt' ? 'selected' : '' }}>{{ __('app.settings.lang_pt') }}</option>
+                    <option value="en" {{ auth()->user()->locale === 'en' ? 'selected' : '' }}>{{ __('app.settings.lang_en') }}</option>
+                    <option value="es" {{ auth()->user()->locale === 'es' ? 'selected' : '' }}>{{ __('app.settings.lang_es') }}</option>
+                </select>
             </div>
         </div>
 
-        <form method="POST" action="{{ route('settings.update') }}">
-            @csrf
-            @method('PUT')
+        {{-- OpenAI Card --}}
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-base font-semibold text-slate-800 dark:text-white">{{ __('app.settings.ai_title') }}</h2>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('app.settings.ai_desc') }}</p>
+                </div>
+            </div>
 
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                        API Key da OpenAI
+                        {{ __('app.settings.openai_key_label') }}
                     </label>
 
                     @if(auth()->user()->openai_key)
@@ -54,7 +82,7 @@
                             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            Chave configurada. Preencha abaixo para substituir.
+                            {{ __('app.settings.key_configured') }}
                         </p>
                     @endif
 
@@ -69,7 +97,7 @@
                     @enderror
 
                     <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                        Sua chave é armazenada de forma encriptada. Obtenha a sua em
+                        {{ __('app.settings.key_info') }}
                         <span class="text-emerald-600 dark:text-emerald-400">platform.openai.com/api-keys</span>.
                     </p>
                 </div>
@@ -79,20 +107,21 @@
                         <input type="checkbox" name="remove_key" id="remove_key" value="1"
                                class="w-4 h-4 rounded border-slate-300 text-red-600 focus:ring-red-500">
                         <label for="remove_key" class="text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
-                            Remover chave existente
+                            {{ __('app.settings.remove_key') }}
                         </label>
                     </div>
                 @endif
-
-                <div class="flex justify-end">
-                    <button type="submit"
-                            class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-5 rounded-lg text-sm transition-colors">
-                        Salvar
-                    </button>
-                </div>
             </div>
-        </form>
-    </div>
+        </div>
 
+        {{-- Save button --}}
+        <div class="flex justify-end">
+            <button type="submit"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-5 rounded-lg text-sm transition-colors">
+                {{ __('app.settings.save') }}
+            </button>
+        </div>
+
+    </form>
 </div>
 @endsection

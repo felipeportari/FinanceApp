@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="">
+<html lang="{{ app()->getLocale() === 'pt' ? 'pt-BR' : app()->getLocale() }}" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
                     </svg>
                 </div>
                 <h1 class="text-2xl font-bold text-slate-800 dark:text-white">FinanceApp</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Gestão financeira inteligente</p>
+                <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">{{ __('app.auth.subtitle') }}</p>
             </div>
 
             {{-- Errors --}}
@@ -40,14 +40,14 @@
                 @csrf
 
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">E-mail</label>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">{{ __('app.auth.email') }}</label>
                     <input type="email" name="email" value="{{ old('email') }}" required autofocus
                            placeholder="seu@email.com"
                            class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Senha</label>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">{{ __('app.auth.password') }}</label>
                     <input type="password" name="password" required
                            placeholder="••••••••"
                            class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm">
@@ -56,19 +56,19 @@
                 <div class="flex items-center justify-between">
                     <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
                         <input type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
-                        Lembrar-me
+                        {{ __('app.auth.remember_me') }}
                     </label>
                 </div>
 
                 <button type="submit"
                         class="w-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-colors duration-150">
-                    Entrar
+                    {{ __('app.auth.sign_in') }}
                 </button>
             </form>
 
             {{-- Demo hint --}}
             <div class="mt-6 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg text-xs text-slate-500 dark:text-slate-400 text-center">
-                <strong class="text-slate-700 dark:text-slate-300">Demo:</strong>
+                <strong class="text-slate-700 dark:text-slate-300">{{ __('app.auth.demo_label') }}:</strong>
                 demo@financeapp.com / password
             </div>
         </div>

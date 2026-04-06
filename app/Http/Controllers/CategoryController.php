@@ -27,13 +27,13 @@ class CategoryController extends Controller
         ]);
 
         return redirect()->route('categories.index')
-            ->with('success', 'Categoria criada com sucesso!');
+            ->with('success', __('app.messages.category_created'));
     }
 
     public function destroy(Category $category)
     {
         if ($category->is_default) {
-            return back()->with('error', 'Categorias padrão não podem ser removidas.');
+            return back()->with('error', __('app.messages.category_default_error'));
         }
 
         if ($category->user_id !== auth()->id()) {
@@ -41,12 +41,12 @@ class CategoryController extends Controller
         }
 
         if ($category->transactions()->exists()) {
-            return back()->with('error', 'Não é possível remover uma categoria com transações vinculadas.');
+            return back()->with('error', __('app.messages.category_has_transactions'));
         }
 
         $category->delete();
 
         return redirect()->route('categories.index')
-            ->with('success', 'Categoria removida com sucesso!');
+            ->with('success', __('app.messages.category_deleted'));
     }
 }

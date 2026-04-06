@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Categorias')
-@section('page-title', 'Categorias')
-@section('page-subtitle', 'Gerencie as categorias de transações')
+@section('title', __('app.categories.page_title'))
+@section('page-title', __('app.categories.page_title'))
+@section('page-subtitle', __('app.categories.page_subtitle'))
 
 @section('content')
 
@@ -12,7 +12,7 @@
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
-        Nova Categoria
+        {{ __('app.categories.new_category') }}
     </a>
 </div>
 
@@ -29,7 +29,7 @@
                 </div>
                 @if(!$cat->is_default)
                     <form method="POST" action="{{ route('categories.destroy', $cat) }}"
-                          onsubmit="return confirm('Remover categoria {{ $cat->name }}?')">
+                          onsubmit="return confirm('{{ __('app.categories.remove_confirm', ['name' => $cat->name]) }}')">
                         @csrf @method('DELETE')
                         <button type="submit" class="text-slate-300 dark:text-slate-600 hover:text-red-500 dark:hover:text-red-400 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@
                     </form>
                 @else
                     <span class="text-xs font-medium px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full">
-                        padrão
+                        {{ __('app.categories.default_badge') }}
                     </span>
                 @endif
             </div>
@@ -47,7 +47,7 @@
             <div>
                 <p class="font-semibold text-slate-800 dark:text-white">{{ $cat->name }}</p>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    {{ $cat->transactions_count }} {{ Str::plural('transação', $cat->transactions_count) }}
+                    {{ trans_choice('app.categories.transaction_count', $cat->transactions_count, ['count' => $cat->transactions_count]) }}
                 </p>
             </div>
 
@@ -59,7 +59,7 @@
         </div>
     @empty
         <div class="col-span-full py-12 text-center text-slate-400">
-            Nenhuma categoria encontrada.
+            {{ __('app.categories.no_categories') }}
         </div>
     @endforelse
 </div>

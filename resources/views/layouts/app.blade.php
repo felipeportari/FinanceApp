@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="{{ auth()->user()?->isDarkTheme() ? 'dark' : '' }}">
+<html lang="{{ app()->getLocale() === 'pt' ? 'pt-BR' : app()->getLocale() }}" class="{{ auth()->user()?->isDarkTheme() ? 'dark' : '' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'FinanceApp') — Gestão Financeira</title>
+    <title>@yield('title', 'FinanceApp') — {{ __('app.common.app_subtitle') }}</title>
 
     {{-- TailwindCSS CDN (swap for compiled in production) --}}
     <script src="https://cdn.tailwindcss.com"></script>

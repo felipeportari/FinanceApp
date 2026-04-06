@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Análise Inteligente')
-@section('page-title', 'Análise Inteligente')
-@section('page-subtitle', 'Diagnóstico financeiro gerado por IA')
+@section('title', __('app.ai.page_title'))
+@section('page-title', __('app.ai.page_title'))
+@section('page-subtitle', __('app.ai.page_subtitle'))
 
 @section('content')
 
@@ -17,11 +17,8 @@
                 </svg>
             </div>
             <div>
-                <h2 class="text-lg font-bold">Consultor Financeiro com IA</h2>
-                <p class="text-emerald-100 text-sm mt-1">
-                    Análise estratégica baseada nas suas transações dos últimos 6 meses.
-                    O sistema envia seus dados financeiros para a OpenAI e retorna insights personalizados.
-                </p>
+                <h2 class="text-lg font-bold">{{ __('app.ai.card_title') }}</h2>
+                <p class="text-emerald-100 text-sm mt-1">{{ __('app.ai.card_desc') }}</p>
             </div>
         </div>
     </div>
@@ -34,10 +31,10 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                 </svg>
                 <div>
-                    <p class="font-semibold text-amber-800 dark:text-amber-300">API Key não configurada</p>
+                    <p class="font-semibold text-amber-800 dark:text-amber-300">{{ __('app.ai.api_not_configured') }}</p>
                     <p class="text-sm text-amber-700 dark:text-amber-400 mt-1">
-                        Para ativar a análise inteligente, adicione sua chave da OpenAI nas
-                        <a href="{{ route('settings.index') }}" class="underline font-medium hover:text-amber-900 dark:hover:text-amber-200">Configurações</a>.
+                        {{ __('app.ai.api_config_hint') }}
+                        <a href="{{ route('settings.index') }}" class="underline font-medium hover:text-amber-900 dark:hover:text-amber-200">{{ __('app.ai.settings_link') }}</a>.
                     </p>
                 </div>
             </div>
@@ -61,7 +58,7 @@
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                 </template>
-                <span x-text="loading ? 'Analisando seus dados...' : 'Gerar Análise Financeira'"></span>
+                <span x-text="loading ? '{{ __('app.ai.analyzing') }}' : '{{ __('app.ai.generate_btn') }}'"></span>
             </button>
         </form>
     @endif
@@ -71,7 +68,7 @@
         <div class="mt-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
             <div class="flex items-center gap-3 px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
                 <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <p class="text-sm font-medium text-slate-700 dark:text-slate-200">Análise gerada em {{ now()->format('d/m/Y \à\s H:i') }}</p>
+                <p class="text-sm font-medium text-slate-700 dark:text-slate-200">{{ __('app.ai.analysis_generated') }} {{ now()->format('d/m/Y \à\s H:i') }}</p>
             </div>
 
             {{-- Rendered markdown --}}
