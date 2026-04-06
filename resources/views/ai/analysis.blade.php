@@ -36,10 +36,9 @@
                 <div>
                     <p class="font-semibold text-amber-800 dark:text-amber-300">API Key não configurada</p>
                     <p class="text-sm text-amber-700 dark:text-amber-400 mt-1">
-                        Para ativar a análise inteligente, adicione sua chave da OpenAI no arquivo <code class="font-mono bg-amber-100 dark:bg-amber-900/40 px-1 rounded">.env</code>:
+                        Para ativar a análise inteligente, adicione sua chave da OpenAI nas
+                        <a href="{{ route('settings.index') }}" class="underline font-medium hover:text-amber-900 dark:hover:text-amber-200">Configurações</a>.
                     </p>
-                    <pre class="mt-2 bg-amber-100 dark:bg-amber-900/40 rounded-lg p-3 text-xs font-mono text-amber-800 dark:text-amber-300 overflow-x-auto">OPENAI_API_KEY=sk-...sua-chave...
-OPENAI_MODEL=gpt-4o-mini</pre>
                 </div>
             </div>
         </div>
