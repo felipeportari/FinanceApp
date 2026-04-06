@@ -17,6 +17,7 @@ class User extends Authenticatable
         'password',
         'theme',
         'locale',
+        'is_admin',
         'openai_key',
     ];
 
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function isDarkTheme(): bool
     {
         return $this->theme === 'dark';
+    }
+
+    public function isAdmin(): bool
+    {
+        return (bool) $this->is_admin;
     }
 }
