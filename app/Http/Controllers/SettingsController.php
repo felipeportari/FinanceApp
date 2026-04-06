@@ -34,6 +34,10 @@ class SettingsController extends Controller
 
         auth()->user()->update($updates);
 
+        if (isset($updates['locale'])) {
+            app()->setLocale($updates['locale']);
+        }
+
         return back()->with('success', __('app.settings.saved'));
     }
 }
