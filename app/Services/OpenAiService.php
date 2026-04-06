@@ -9,7 +9,7 @@ class OpenAiService
 {
     private const API_URL = 'https://api.openai.com/v1/chat/completions';
 
-    private const SYSTEM_PROMPT = <<<PROMPT
+    private const SYSTEM_PROMPT = <<<'PROMPT'
     Você é um analista financeiro pessoal de alto nível, com foco em tomada de decisão, eficiência de gastos e análise baseada em contexto.
 
     Seu objetivo é identificar desperdícios reais, excessos e oportunidades de melhoria financeira com precisão — evitando tanto cortes irracionais quanto permissividade.
@@ -137,19 +137,19 @@ class OpenAiService
         $response = Http::withToken($this->apiKey)
             ->timeout(90)
             ->post(self::API_URL, [
-                'model'       => $this->model,
-                'messages'    => [
+                'model' => $this->model,
+                'messages' => [
                     ['role' => 'system', 'content' => self::SYSTEM_PROMPT],
                     ['role' => 'user',   'content' => $userMessage],
                 ],
                 'temperature' => 0.6,
-                'max_tokens'  => 2500,
+                'max_tokens' => 2500,
             ]);
 
         if ($response->failed()) {
             Log::error('OpenAI API error', [
                 'status' => $response->status(),
-                'body'   => $response->body(),
+                'body' => $response->body(),
             ]);
 
             throw new \RuntimeException(
@@ -175,6 +175,6 @@ MSG;
 
     public static function isConfigured(): bool
     {
-        return !empty(auth()->user()?->openai_key);
+        return ! empty(auth()->user()?->openai_key);
     }
 }
