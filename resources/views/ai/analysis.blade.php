@@ -99,7 +99,10 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-slate-800 dark:text-white">
-                                {{ __('app.ai.report_generated') }} {{ $report->created_at->isoFormat('DD/MM/YYYY [às] HH:mm') }}
+                                {{ __('app.ai.report_generated') }}
+                                <span class="local-date" data-utc="{{ $report->created_at->toISOString() }}">
+                                    {{ $report->created_at->isoFormat('DD/MM/YYYY [às] HH:mm') }}
+                                </span>
                             </p>
                             <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                                 {{ $report->created_at->diffForHumans() }}
@@ -133,6 +136,14 @@
 
 @push('scripts')
 <script>
+document.querySelectorAll('.local-date[data-utc]').forEach(el => {
+    const d = new Date(el.dataset.utc);
+    el.textContent = d.toLocaleString(undefined, {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit',
+    });
+});
+
 function aiGenerator() {
     return {
         loading: false,

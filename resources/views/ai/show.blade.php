@@ -2,7 +2,9 @@
 
 @section('title', __('app.ai.page_title'))
 @section('page-title', __('app.ai.page_title'))
-@section('page-subtitle', __('app.ai.report_generated') . ' ' . $report->created_at->isoFormat('DD/MM/YYYY [às] HH:mm'))
+@section('page-subtitle')
+{{ __('app.ai.report_generated') }} <span id="reportSubDate" data-utc="{{ $report->created_at->toISOString() }}">{{ $report->created_at->isoFormat('DD/MM/YYYY') }}</span>
+@endsection
 
 @section('content')
 
@@ -36,7 +38,10 @@
         <div class="flex items-center gap-3 px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
             <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
             <p class="text-sm font-medium text-slate-700 dark:text-slate-200">
-                {{ __('app.ai.report_generated') }} {{ $report->created_at->isoFormat('DD [de] MMMM [de] YYYY [às] HH:mm') }}
+                {{ __('app.ai.report_generated') }}
+                <span id="reportHeaderDate" data-utc="{{ $report->created_at->toISOString() }}">
+                    {{ $report->created_at->isoFormat('DD [de] MMMM [de] YYYY [às] HH:mm') }}
+                </span>
             </p>
         </div>
 
@@ -49,6 +54,15 @@
 
 @push('scripts')
 <script>
+// Format timestamps in user's local timezone
+[document.getElementById('reportSubDate'), document.getElementById('reportHeaderDate')].forEach((el, i) => {
+    if (!el) return;
+    const d = new Date(el.dataset.utc);
+    el.textContent = i === 0
+        ? d.toLocaleString(undefined, { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : d.toLocaleString(undefined, { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+});
+
 const raw = @json($report->content);
 document.getElementById('reportContent').innerHTML = marked.parse(raw);
 
